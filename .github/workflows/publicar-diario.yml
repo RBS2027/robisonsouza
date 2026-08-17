@@ -1,0 +1,26 @@
+name: Publicar artigo diario
+on:
+  schedule:
+    - cron: '5 12 * * *'
+  workflow_dispatch: {}
+permissions:
+  contents: write
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publicar proximo da fila
+        run: python3 scripts/publicar.py
+      - name: Commit e push
+        run: |
+          git config user.name "robo-perito"
+          git config user.email "robo@robisonsouza.com.br"
+          git add -A
+          git diff --cached --quiet || git commit -m "Publicacao diaria automatica"
+          git push
+      - name: Instrucao em caso de falha
+        if: failure()
+        run: |
+          echo "::error title=ABRA O CLAUDE E DIGA::Claude, conserta os sites — chegou alarme do GitHub (robisonsouza/publicar). Ele investiga a causa e corrige sozinho."
+          exit 1

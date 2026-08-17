@@ -1,0 +1,19 @@
+name: Revisao do site
+on:
+  schedule:
+    - cron: '30 14 * * *'
+  workflow_dispatch: {}
+permissions:
+  contents: read
+jobs:
+  revisar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Rodar bateria de verificacoes
+        run: python3 scripts/revisao.py
+      - name: Instrucao em caso de falha
+        if: failure()
+        run: |
+          echo "::error title=ABRA O CLAUDE E DIGA::Claude, conserta os sites — chegou alarme do GitHub (robisonsouza/revisao). Ele investiga a causa e corrige sozinho."
+          exit 1
