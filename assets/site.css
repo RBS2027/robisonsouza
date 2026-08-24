@@ -202,3 +202,15 @@ footer.site a:hover{color:var(--ouro-vivo);transform:translateX(3px)}
 .estrelas{color:var(--ouro);letter-spacing:.2em;font-size:1.2rem}
 .cartao.avaliacao p.rev-txt{font-style:italic;margin-bottom:.75rem;color:var(--texto)}
 .cartao.avaliacao .fonte{color:var(--tinta-suave);font-size:.75rem;font-family:'Inter',sans-serif;text-transform:uppercase;letter-spacing:.08em}
+
+/* Rede de segurança: nenhuma imagem estoura a largura da tela no celular */
+img{max-width:100%}
+
+/* Tabelas dentro dos artigos: estilizadas e com overflow controlado no celular (achado 24/08, sem CSS nenhum antes) */
+article.prosa table{width:100%;border-collapse:collapse;margin:1.25rem 0 1.5rem;font-size:.92rem;border-radius:10px;overflow:hidden;border:1px solid var(--linha)}
+article.prosa th,article.prosa td{border:1px solid var(--linha);padding:.6rem .8rem;text-align:left;vertical-align:top}
+article.prosa th{color:var(--ouro);font-family:'Inter',sans-serif;font-weight:600;background:rgba(220,182,113,.08)}
+@media(max-width:760px){article.prosa table{display:block;overflow-x:auto;max-width:100%;-webkit-overflow-scrolling:touch}}
+
+/* Evita zoom automático do iOS ao tocar em campo de formulário (precisa font-size >=16px) */
+input,textarea,select{font-size:16px}
