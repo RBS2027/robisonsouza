@@ -1,3 +1,11 @@
+
+/* Fontes auto-hospedadas (substituindo Google Fonts — elimina 2 round-trips externos em toda página) */
+@font-face{font-family:'Fraunces';font-style:normal;font-weight:500;font-display:swap;src:url('/assets/fonts/fraunces-500.woff2') format('woff2')}
+@font-face{font-family:'Fraunces';font-style:normal;font-weight:600 900;font-display:swap;src:url('/assets/fonts/fraunces-600.woff2') format('woff2')}
+@font-face{font-family:'Source Serif 4';font-style:normal;font-weight:400;font-display:swap;src:url('/assets/fonts/source-serif-400.woff2') format('woff2')}
+@font-face{font-family:'Source Serif 4';font-style:normal;font-weight:600;font-display:swap;src:url('/assets/fonts/source-serif-600.woff2') format('woff2')}
+@font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:swap;src:url('/assets/fonts/inter-400.woff2') format('woff2')}
+@font-face{font-family:'Inter';font-style:normal;font-weight:600 700;font-display:swap;src:url('/assets/fonts/inter-600.woff2') format('woff2')}
 :root{
   --verde:#081C16; --verde-2:#0E2721; --verde-3:#1B4A3F;
   --ouro:#DCB671; --ouro-vivo:#F0C878; --ouro-claro:#F3E3C2; --marfim:#FBF8F1;
