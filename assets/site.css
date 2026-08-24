@@ -187,3 +187,18 @@ footer.site a:hover{color:var(--ouro-vivo);transform:translateX(3px)}
 .capa-dourada{height:4px;width:100%;background:linear-gradient(90deg,var(--ouro),var(--ouro-vivo),var(--ouro-claro),var(--ouro-vivo),var(--ouro));background-size:200% 100%;animation:capa-flow 6s linear infinite}
 @keyframes capa-flow{0%{background-position:0% 0}100%{background-position:200% 0}}
 @media(prefers-reduced-motion:reduce){.capa-dourada{animation:none}}
+
+/* Cards do blog (faltava — listagem renderizava sem grade/estilo) */
+.grade-servicos{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.4rem}
+.cartao{background:var(--cartao);border:1px solid var(--linha);border-radius:16px;padding:1.4rem 1.5rem;transition:.25s;text-align:left}
+.cartao:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(0,0,0,.1)}
+.cartao h3{margin:.3rem 0 .6rem;font-size:1.05rem;line-height:1.35}
+.cartao h3 a{color:inherit;text-decoration:none}
+.cartao h3 a:hover{color:var(--ouro)}
+.cartao>p:not(.migalha){font-size:.92rem;line-height:1.6;color:var(--tinta-suave)}
+
+/* Depoimentos / avaliações do Google */
+.nota-google{font-family:'Inter',sans-serif;font-size:1.05rem;margin-bottom:1.25rem}
+.estrelas{color:var(--ouro);letter-spacing:.2em;font-size:1.2rem}
+.cartao.avaliacao p.rev-txt{font-style:italic;margin-bottom:.75rem;color:var(--texto)}
+.cartao.avaliacao .fonte{color:var(--tinta-suave);font-size:.75rem;font-family:'Inter',sans-serif;text-transform:uppercase;letter-spacing:.08em}
