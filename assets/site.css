@@ -182,3 +182,8 @@ footer.site a:hover{color:var(--ouro-vivo);transform:translateX(3px)}
   .menu-toggle:checked ~ .menu-btn span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
   .menu-toggle:checked ~ .menu-btn{position:fixed;right:1.6rem;top:1.5rem}
 }
+
+/* Capa dourada — faixa fina animada no topo de toda página */
+.capa-dourada{height:4px;width:100%;background:linear-gradient(90deg,var(--ouro),var(--ouro-vivo),var(--ouro-claro),var(--ouro-vivo),var(--ouro));background-size:200% 100%;animation:capa-flow 6s linear infinite}
+@keyframes capa-flow{0%{background-position:0% 0}100%{background-position:200% 0}}
+@media(prefers-reduced-motion:reduce){.capa-dourada{animation:none}}
