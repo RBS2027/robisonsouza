@@ -1,0 +1,48 @@
+name: Verificação de qualidade automática
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "0 9 * * *"  # todo dia às 9h UTC (~6h da manhã em SP)
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Rodar verificação (corrige o que é seguro, reporta o resto)
+        run: python3 scripts/qa_check.py
+
+      - name: Commitar correções automáticas (se houver)
+        run: |
+          git config user.name "QA automático"
+          git config user.email "qa-bot@rbs.local"
+          if ! git diff --quiet; then
+            git add -A
+            git commit -m "QA automático: correção mecânica (aspas em meta description)"
+            git push
+          fi
+
+      - name: Abrir/atualizar issue se sobrou algo pra revisar
+        if: always()
+        run: |
+          if [ -s /tmp/qa_report_body.md ]; then
+            TITLE="🔎 Verificação de qualidade encontrou pontos pra revisar"
+            EXISTING=$(gh issue list --search "in:title \"$TITLE\"" --state open --json number --jq '.[0].number')
+            if [ -n "$EXISTING" ] && [ "$EXISTING" != "null" ]; then
+              gh issue comment "$EXISTING" --body-file /tmp/qa_report_body.md
+            else
+              gh issue create --title "$TITLE" --body-file /tmp/qa_report_body.md
+            fi
+          fi
+        env:
+          GH_TOKEN: ${{ github.token }}
