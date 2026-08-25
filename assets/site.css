@@ -214,3 +214,11 @@ article.prosa th{color:var(--ouro);font-family:'Inter',sans-serif;font-weight:60
 
 /* Evita zoom automático do iOS ao tocar em campo de formulário (precisa font-size >=16px) */
 input,textarea,select{font-size:16px}
+
+.caixa-autor{display:flex;gap:1.1rem;align-items:center;margin:2.2rem 0 1.4rem;padding:1.3rem 1.5rem;
+  background:var(--cartao);border:1px solid var(--linha);border-radius:16px}
+.caixa-autor img{width:76px;height:76px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid var(--ouro-claro)}
+.caixa-autor-texto{font-size:.9rem;color:var(--tinta-suave);line-height:1.65}
+.caixa-autor-texto strong{color:var(--tinta);font-size:1.02rem;display:block;margin-bottom:.15rem}
+.caixa-autor-texto a{color:var(--verde-3);text-decoration:underline;font-weight:600}
+@media(max-width:520px){.caixa-autor{flex-direction:column;text-align:center}}
