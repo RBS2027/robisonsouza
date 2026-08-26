@@ -33,8 +33,9 @@ a{color:inherit}
 /* Selo + cabeçalho */
 .selo{background:var(--verde);color:var(--ouro-claro);font-family:'Inter',sans-serif;
   font-size:.7rem;letter-spacing:.14em;text-align:center;padding:.4rem;border-bottom:1px solid rgba(220,182,113,.25)}
-header.site{background:rgba(8,28,22,.82);backdrop-filter:blur(14px);color:#fff;position:sticky;top:0;z-index:50;
-  border-bottom:1px solid rgba(220,182,113,.28)}
+header.site{background:rgba(8,28,22,.82);color:#fff;position:sticky;top:0;z-index:50;
+  border-bottom:1px solid rgba(220,182,113,.28);isolation:isolate}
+header.site::before{content:"";position:absolute;inset:0;backdrop-filter:blur(14px);z-index:-1}
 header.site .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding-block:.75rem}
 .brand{display:flex;align-items:center;gap:.7rem;text-decoration:none;color:#fff}
 .brand img{height:46px}
