@@ -78,6 +78,31 @@ def fix_unescaped_quotes_in_meta(content):
 AUTOFIXERS = [fix_unescaped_quotes_in_meta]
 
 
+
+def check_fila_slug_collisions(existing_paths):
+    """Detecta slugs duplicados dentro da fila e slugs da fila que colidem com pastas já publicadas."""
+    import json
+    fila_dir = os.path.join(REPO, "_fila")
+    dup_in_fila = defaultdict(list)
+    fila_vs_published = []
+    if os.path.isdir(fila_dir):
+        for entry in sorted(os.listdir(fila_dir)):
+            meta_path = os.path.join(fila_dir, entry, "meta.json")
+            if not os.path.isfile(meta_path):
+                continue
+            try:
+                meta = json.load(open(meta_path, encoding="utf-8"))
+            except Exception:
+                continue
+            slug = meta.get("slug", "")
+            if not slug:
+                continue
+            dup_in_fila[slug].append(entry)
+            if ("/" + slug + "/") in existing_paths:
+                fila_vs_published.append((entry, slug))
+    dup_in_fila = {s: e for s, e in dup_in_fila.items() if len(e) > 1}
+    return dup_in_fila, fila_vs_published
+
 def main():
     pages = all_pages()
     real_pages = [p for p in pages if "/_fila/" not in p]
@@ -210,8 +235,20 @@ def main():
             lines.append(f"- {pth}")
         lines.append("")
 
+    dup_in_fila, fila_vs_published = check_fila_slug_collisions(existing_paths)
+    if dup_in_fila:
+        lines.append(f"## \u26a0\ufe0f Slugs duplicados na fila ({len(dup_in_fila)} caso(s))")
+        for slug, entries in list(dup_in_fila.items())[:15]:
+            lines.append(f"- **{slug}**: gerado em {', '.join(entries)}")
+        lines.append("")
+    if fila_vs_published:
+        lines.append(f"## \u26a0\ufe0f Slugs da fila colidindo com página já publicada ({len(fila_vs_published)} caso(s))")
+        for entry, slug in fila_vs_published[:15]:
+            lines.append(f"- **{entry}** -> /{slug}/ já existe publicado")
+        lines.append("")
+
     report = "\n".join(lines)
-    has_manual_issues = bool(struct_errors or dup_titles or seo_issues or img_no_alt or broken_links or sitemap_issues)
+    has_manual_issues = bool(struct_errors or dup_titles or seo_issues or img_no_alt or broken_links or sitemap_issues or dup_in_fila or fila_vs_published)
 
     with open(os.environ.get("GITHUB_STEP_SUMMARY", "/tmp/qa_summary.md"), "a", encoding="utf-8") as fh:
         fh.write(report if report else "## ✅ Tudo limpo — nenhum problema encontrado.\n")
