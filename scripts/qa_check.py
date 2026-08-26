@@ -10,6 +10,20 @@ from html.parser import HTMLParser
 from collections import defaultdict
 
 REPO = os.getcwd()
+
+
+def detect_domain():
+    """Domínio do próprio site, lido do sitemap.xml — usado para achar links internos
+    escritos como URL absoluta (https://dominio/pagina/) em vez de caminho relativo."""
+    try:
+        sm = open(os.path.join(REPO, "sitemap.xml"), encoding="utf-8").read()
+        m = re.search(r'<loc>https?://(?:www\.)?([a-zA-Z0-9.-]+)', sm)
+        return m.group(1) if m else None
+    except Exception:
+        return None
+
+
+DOMAIN = detect_domain()
 VOID = {'br', 'img', 'input', 'meta', 'link', 'hr', 'area', 'base', 'col', 'embed', 'source', 'track', 'wbr'}
 
 
@@ -133,6 +147,11 @@ def main():
         for href in re.findall(r'href="(/[a-zA-Z0-9\-_/]*/)"', c):
             if href not in existing_paths and href not in ("/blog/",):
                 broken_links[rel].append(f"link interno pra página inexistente: {href}")
+
+        if DOMAIN:
+            for href in re.findall(rf'href="https?://(?:www\.)?{re.escape(DOMAIN)}(/[a-zA-Z0-9\-_/]*/)"', c):
+                if href not in existing_paths and href not in ("/blog/",):
+                    broken_links[rel].append(f"link interno (URL absoluta) pra página inexistente: {href}")
 
     dup_titles = {t: srcs for t, srcs in titles.items() if len(srcs) > 1}
 
