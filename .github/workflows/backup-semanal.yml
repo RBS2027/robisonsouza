@@ -1,0 +1,29 @@
+name: Backup semanal do site
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'  # toda segunda-feira 06:00 UTC (03:00 BRT)
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compactar site
+        run: |
+          DATA=$(date +%Y-%m-%d)
+          echo "DATA=$DATA" >> $GITHUB_ENV
+          zip -r "backup-${DATA}.zip" . -x ".git/*"
+      - name: Publicar como Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: "backup-${{ env.DATA }}"
+          name: "Backup ${{ env.DATA }}"
+          files: "backup-${{ env.DATA }}.zip"
+          body: "Backup automático semanal do repositório."
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
