@@ -11,7 +11,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Publicar proximo da fila
-        run: python3 scripts/publicar.py
+        id: publicar
+        run: |
+          python3 scripts/publicar.py | tee /tmp/publicar.log
+          URL=$(grep "^INDEXNOW_URL=" /tmp/publicar.log | cut -d= -f2-)
+          echo "url=$URL" >> "$GITHUB_OUTPUT"
+      - name: Notificar IndexNow (Bing/Yandex)
+        if: steps.publicar.outputs.url != ''
+        run: |
+          curl -s -X POST "https://api.indexnow.org/indexnow" \
+            -H "Content-Type: application/json; charset=utf-8" \
+            -d '{"host":"robisonsouza.com.br","key":"9464809730abec9a7e1cbb95623945ff","keyLocation":"https://robisonsouza.com.br/9464809730abec9a7e1cbb95623945ff.txt","urlList":["${{ steps.publicar.outputs.url }}"]}' \
+            || echo "IndexNow ping falhou (nao critico, nao interrompe a publicacao)"
       - name: Commit e push
         run: |
           git config user.name "robo-perito"

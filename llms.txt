@@ -18,6 +18,7 @@
 ## Materiais
 - [Glossário](https://robisonsouza.com.br/glossario/)
 - [Feed RSS do blog](https://robisonsouza.com.br/blog/feed.xml)
+- [Versão completa para IAs](https://robisonsouza.com.br/llms-full.txt)
 
 ## Sites relacionados
 - https://peritoempsicologiaforense.com.br (perícia psicológica forense)

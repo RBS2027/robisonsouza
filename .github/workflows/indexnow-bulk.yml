@@ -1,0 +1,15 @@
+name: IndexNow - envio inicial em lote
+on:
+  push:
+    paths:
+      - '.indexnow-bulk-trigger'
+  workflow_dispatch: {}
+permissions:
+  contents: read
+jobs:
+  bulk-submit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Extrair URLs do sitemap e enviar ao IndexNow
+        run: python3 scripts/indexnow_bulk.py

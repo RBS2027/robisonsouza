@@ -38,3 +38,4 @@ item_xml = f'<item><title>{html.escape(h1)}</title><link>{url}</link><guid>{url}
 feed = feed.replace('</description>', '</description>' + item_xml, 1)
 open('blog/feed.xml', 'w', encoding='utf-8').write(feed)
 print('publicado:', slug, '| restam na fila:', len(fila) - 1)
+print('INDEXNOW_URL=' + url)
