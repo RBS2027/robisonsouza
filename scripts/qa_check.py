@@ -153,6 +153,41 @@ def check_corrupted_schema_url_fields():
     return problems
 
 
+
+def check_schema_mismatched_with_page():
+    """O "name"/"headline" do schema WebPage/Article deve corresponder ao <h1> real da
+    própria página — um schema com título de OUTRA página é sinal de bloco copiado por
+    engano (achado real em 29/08/2026 no artigo conflito-de-lealdade: schema Article
+    inteiro pertencia a um artigo diferente)."""
+    problems = []
+    for f in glob.glob(os.path.join(REPO, "**", "index.html"), recursive=True):
+        if "/_fila/" in f:
+            continue
+        with open(f, encoding="utf-8") as fh:
+            c = fh.read()
+        h1_m = re.search(r"<h1[^>]*>(.*?)</h1>", c, re.S)
+        if not h1_m:
+            continue
+        h1_text = re.sub(r"<[^>]+>", "", h1_m.group(1)).strip().lower()
+        if not h1_text:
+            continue
+        for block in re.findall(r'<script type="application/ld\+json"[^>]*>(.*?)</script>', c, re.S):
+            try:
+                data = json.loads(block)
+            except Exception:
+                continue
+            candidates = data if isinstance(data, list) else [data]
+            for node in candidates:
+                if not isinstance(node, dict) or node.get("@type") not in ("WebPage", "Article"):
+                    continue
+                schema_title = (node.get("name") or node.get("headline") or "").strip().lower()
+                if not schema_title:
+                    continue
+                if schema_title not in h1_text and h1_text not in schema_title:
+                    problems.append((os.path.relpath(f, REPO), schema_title[:60]))
+    return problems
+
+
 def check_fila_slug_collisions(existing_paths):
     """Detecta slugs duplicados dentro da fila e slugs da fila que colidem com pastas já publicadas."""
     import json
@@ -437,6 +472,14 @@ def main():
             lines.append(f"- **{rel}**")
         lines.append("")
 
+
+    schema_mismatches = check_schema_mismatched_with_page()
+    if schema_mismatches:
+        lines.append(f"## \u26a0\ufe0f Schema com título de outra página ({len(schema_mismatches)} caso(s))")
+        for rel, titulo in schema_mismatches[:15]:
+            lines.append(f"- **{rel}**: schema diz \"{titulo}\" — não bate com o H1 da página")
+        lines.append("")
+
     dup_in_fila, fila_vs_published = check_fila_slug_collisions(existing_paths)
     if dup_in_fila:
         lines.append(f"## \u26a0\ufe0f Slugs duplicados na fila ({len(dup_in_fila)} caso(s))")
@@ -450,7 +493,7 @@ def main():
         lines.append("")
 
     report = "\n".join(lines)
-    has_manual_issues = bool(struct_errors or dup_titles or seo_issues or img_no_alt or broken_links or sitemap_issues or dup_in_fila or fila_vs_published or wrong_domain_scripts or self_serving_review or title_violations or sitemap_wrong_domain or blog_listing_issues or oversized_images or corrupted_schema_urls)
+    has_manual_issues = bool(struct_errors or dup_titles or seo_issues or img_no_alt or broken_links or sitemap_issues or dup_in_fila or fila_vs_published or wrong_domain_scripts or self_serving_review or title_violations or sitemap_wrong_domain or blog_listing_issues or oversized_images or corrupted_schema_urls or schema_mismatches)
 
     with open(os.environ.get("GITHUB_STEP_SUMMARY", "/tmp/qa_summary.md"), "a", encoding="utf-8") as fh:
         fh.write(report if report else "## ✅ Tudo limpo — nenhum problema encontrado.\n")
