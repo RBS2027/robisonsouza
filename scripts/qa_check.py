@@ -79,6 +79,39 @@ AUTOFIXERS = [fix_unescaped_quotes_in_meta]
 
 
 
+
+def check_blog_listing_completeness():
+    """Todo artigo em blog/posts.json precisa ter um link pra ele dentro de blog/index.html —
+    achado real em 29/08/2026: robisonsouza só linkava 66 de 417 (robô nunca fez backfill
+    do histórico da migração). Também acusa entradas fósseis no posts.json (artigo que não
+    existe mais como página) e artigos publicados fora do posts.json (órfãos de verdade)."""
+    problems = {"sem_link_na_listagem": [], "fosseis_no_posts_json": [], "publicado_sem_registro": []}
+    posts_path = os.path.join(REPO, "blog", "posts.json")
+    index_path = os.path.join(REPO, "blog", "index.html")
+    if not (os.path.exists(posts_path) and os.path.exists(index_path)):
+        return problems
+    try:
+        posts = json.load(open(posts_path, encoding="utf-8"))
+    except Exception:
+        return problems
+    with open(index_path, encoding="utf-8") as fh:
+        idx_html = fh.read()
+    existing_slugs = {f.split("/index.html")[0] for f in glob.glob(os.path.join(REPO, "**", "index.html"), recursive=True) if "/_fila/" not in f}
+    existing_slugs = {os.path.relpath(s, REPO) for s in existing_slugs}
+    for p in posts:
+        slug = p.get("slug", "")
+        if slug not in existing_slugs and os.path.join("blog", slug) not in existing_slugs:
+            problems["fosseis_no_posts_json"].append(slug)
+        elif (f'/{slug}/"' not in idx_html) and (f'/blog/{slug}/"' not in idx_html):
+            problems["sem_link_na_listagem"].append(slug)
+    registered = {p.get("slug", "") for p in posts}
+    for f in glob.glob(os.path.join(REPO, "blog", "*", "index.html")):
+        slug = os.path.basename(os.path.dirname(f))
+        if slug not in registered:
+            problems["publicado_sem_registro"].append(slug)
+    return {k: v for k, v in problems.items() if v}
+
+
 def check_fila_slug_collisions(existing_paths):
     """Detecta slugs duplicados dentro da fila e slugs da fila que colidem com pastas já publicadas."""
     import json
@@ -338,6 +371,16 @@ def main():
             lines.append(f"- {loc}")
         lines.append("")
 
+
+    blog_listing_issues = check_blog_listing_completeness()
+    blog_listing_issues = {k: v for k, v in blog_listing_issues.items() if v}
+    if blog_listing_issues:
+        total = sum(len(v) for v in blog_listing_issues.values())
+        lines.append(f"## \u26a0\ufe0f Lista do blog fora de sincronia com posts.json ({total} caso(s))")
+        for categoria, itens in blog_listing_issues.items():
+            lines.append(f"- **{categoria}**: {len(itens)} — {', '.join(itens[:5])}")
+        lines.append("")
+
     dup_in_fila, fila_vs_published = check_fila_slug_collisions(existing_paths)
     if dup_in_fila:
         lines.append(f"## \u26a0\ufe0f Slugs duplicados na fila ({len(dup_in_fila)} caso(s))")
@@ -351,7 +394,7 @@ def main():
         lines.append("")
 
     report = "\n".join(lines)
-    has_manual_issues = bool(struct_errors or dup_titles or seo_issues or img_no_alt or broken_links or sitemap_issues or dup_in_fila or fila_vs_published or wrong_domain_scripts or self_serving_review or title_violations or sitemap_wrong_domain)
+    has_manual_issues = bool(struct_errors or dup_titles or seo_issues or img_no_alt or broken_links or sitemap_issues or dup_in_fila or fila_vs_published or wrong_domain_scripts or self_serving_review or title_violations or sitemap_wrong_domain or blog_listing_issues)
 
     with open(os.environ.get("GITHUB_STEP_SUMMARY", "/tmp/qa_summary.md"), "a", encoding="utf-8") as fh:
         fh.write(report if report else "## ✅ Tudo limpo — nenhum problema encontrado.\n")
