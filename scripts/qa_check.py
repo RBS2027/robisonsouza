@@ -239,6 +239,29 @@ def check_insecure_internal_links():
     return problems
 
 
+
+def check_missing_trailing_slash(existing_paths):
+    """Link interno pra pagina existente sem barra final força um redirecionamento
+    extra a cada clique — achado real em 29/08/2026 (10 casos robisonsouza, 32 perito)."""
+    problems = []
+    existing_slugs = {p.strip("/") for p in existing_paths if p not in ("/",)}
+    for f in glob.glob(os.path.join(REPO, "**", "index.html"), recursive=True):
+        if "/_fila/" in f:
+            continue
+        with open(f, encoding="utf-8") as fh:
+            c = fh.read()
+        count = 0
+        for m in re.finditer(r'href="(/[a-zA-Z0-9\-_/]+)"', c):
+            path = m.group(1)
+            if path.endswith("/"):
+                continue
+            if path.lstrip("/") in existing_slugs:
+                count += 1
+        if count:
+            problems.append((os.path.relpath(f, REPO), count))
+    return problems
+
+
 def check_fila_slug_collisions(existing_paths):
     """Detecta slugs duplicados dentro da fila e slugs da fila que colidem com pastas já publicadas."""
     import json
@@ -554,6 +577,14 @@ def main():
             lines.append(f"- **{rel}**: {n} ocorrencia(s)")
         lines.append("")
 
+
+    missing_trailing_slash = check_missing_trailing_slash(existing_paths)
+    if missing_trailing_slash:
+        lines.append(f"## \u26a0\ufe0f Link interno sem barra final ({len(missing_trailing_slash)} pagina(s))")
+        for rel, n in missing_trailing_slash[:15]:
+            lines.append(f"- **{rel}**: {n} link(s)")
+        lines.append("")
+
     dup_in_fila, fila_vs_published = check_fila_slug_collisions(existing_paths)
     if dup_in_fila:
         lines.append(f"## \u26a0\ufe0f Slugs duplicados na fila ({len(dup_in_fila)} caso(s))")
@@ -567,7 +598,7 @@ def main():
         lines.append("")
 
     report = "\n".join(lines)
-    has_manual_issues = bool(struct_errors or dup_titles or seo_issues or img_no_alt or broken_links or sitemap_issues or dup_in_fila or fila_vs_published or wrong_domain_scripts or self_serving_review or title_violations or sitemap_wrong_domain or blog_listing_issues or oversized_images or corrupted_schema_urls or schema_mismatches or missing_twitter_card or rss_error or insecure_links)
+    has_manual_issues = bool(struct_errors or dup_titles or seo_issues or img_no_alt or broken_links or sitemap_issues or dup_in_fila or fila_vs_published or wrong_domain_scripts or self_serving_review or title_violations or sitemap_wrong_domain or blog_listing_issues or oversized_images or corrupted_schema_urls or schema_mismatches or missing_twitter_card or rss_error or insecure_links or missing_trailing_slash)
 
     with open(os.environ.get("GITHUB_STEP_SUMMARY", "/tmp/qa_summary.md"), "a", encoding="utf-8") as fh:
         fh.write(report if report else "## ✅ Tudo limpo — nenhum problema encontrado.\n")
