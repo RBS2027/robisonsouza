@@ -188,6 +188,22 @@ def check_schema_mismatched_with_page():
     return problems
 
 
+
+def check_missing_twitter_card():
+    """Toda pagina com og:image deveria ter tambem twitter:card (summary_large_image) —
+    achado real em 29/08/2026: depoimentoespecial e estudopsicossocial nunca tinham essa
+    tag em nenhuma pagina, so robisonsouza/perito tinham."""
+    problems = []
+    for f in glob.glob(os.path.join(REPO, "**", "index.html"), recursive=True):
+        if "/_fila/" in f or f.endswith("404.html"):
+            continue
+        with open(f, encoding="utf-8") as fh:
+            c = fh.read()
+        if 'property="og:image"' in c and 'name="twitter:card"' not in c:
+            problems.append(os.path.relpath(f, REPO))
+    return problems
+
+
 def check_fila_slug_collisions(existing_paths):
     """Detecta slugs duplicados dentro da fila e slugs da fila que colidem com pastas já publicadas."""
     import json
@@ -480,6 +496,14 @@ def main():
             lines.append(f"- **{rel}**: schema diz \"{titulo}\" — não bate com o H1 da página")
         lines.append("")
 
+
+    missing_twitter_card = check_missing_twitter_card()
+    if missing_twitter_card:
+        lines.append(f"## \u26a0\ufe0f Sem meta twitter:card ({len(missing_twitter_card)} pagina(s))")
+        for rel in missing_twitter_card[:15]:
+            lines.append(f"- **{rel}**")
+        lines.append("")
+
     dup_in_fila, fila_vs_published = check_fila_slug_collisions(existing_paths)
     if dup_in_fila:
         lines.append(f"## \u26a0\ufe0f Slugs duplicados na fila ({len(dup_in_fila)} caso(s))")
@@ -493,7 +517,7 @@ def main():
         lines.append("")
 
     report = "\n".join(lines)
-    has_manual_issues = bool(struct_errors or dup_titles or seo_issues or img_no_alt or broken_links or sitemap_issues or dup_in_fila or fila_vs_published or wrong_domain_scripts or self_serving_review or title_violations or sitemap_wrong_domain or blog_listing_issues or oversized_images or corrupted_schema_urls or schema_mismatches)
+    has_manual_issues = bool(struct_errors or dup_titles or seo_issues or img_no_alt or broken_links or sitemap_issues or dup_in_fila or fila_vs_published or wrong_domain_scripts or self_serving_review or title_violations or sitemap_wrong_domain or blog_listing_issues or oversized_images or corrupted_schema_urls or schema_mismatches or missing_twitter_card)
 
     with open(os.environ.get("GITHUB_STEP_SUMMARY", "/tmp/qa_summary.md"), "a", encoding="utf-8") as fh:
         fh.write(report if report else "## ✅ Tudo limpo — nenhum problema encontrado.\n")
