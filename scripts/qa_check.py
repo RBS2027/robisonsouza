@@ -103,6 +103,80 @@ def check_fila_slug_collisions(existing_paths):
     dup_in_fila = {s: e for s, e in dup_in_fila.items() if len(e) > 1}
     return dup_in_fila, fila_vs_published
 
+
+def check_wrong_domain_in_scripts():
+    """Scripts do robô (publicar.py, revisao.py, indexnow_bulk.py etc.) devem referenciar
+    SÓ o próprio domínio. Um domínio de outro site .com.br hardcoded ali é sinal de
+    template copiado de outro repo sem trocar o domínio (bug real, silencioso, recorrente
+    a cada publicação automática — achado em 29/08/2026 no robisonsouza)."""
+    problems = []
+    if not DOMAIN:
+        return problems
+    for f in glob.glob(os.path.join(REPO, "scripts", "*.py")):
+        with open(f, encoding="utf-8") as fh:
+            c = fh.read()
+        for m in set(re.findall(r'https?://([a-zA-Z0-9.-]+\.com\.br)', c)):
+            if m != DOMAIN and not m.startswith('www.' + DOMAIN):
+                problems.append((os.path.relpath(f, REPO), m))
+    return problems
+
+
+def check_self_serving_review_schema():
+    """AggregateRating/Review schema sobre o próprio profissional/site (auto-referenciado)
+    é contra as diretrizes do Google (risco de ação manual) e o tipo Person nunca é aceito
+    pra essa marcação — decisão fixa: nunca usar. Achado e removido em 29/08/2026."""
+    problems = []
+    for f in glob.glob(os.path.join(REPO, "**", "index.html"), recursive=True):
+        if "/_fila/" in f:
+            continue
+        with open(f, encoding="utf-8") as fh:
+            c = fh.read()
+        if '"@type":"AggregateRating"' in c or '"@type": "AggregateRating"' in c or '"@type":"Review"' in c or '"@type": "Review"' in c:
+            problems.append(os.path.relpath(f, REPO))
+    return problems
+
+
+def check_professional_title_violation():
+    """Padrão de titulação oficial: NUNCA apresentar "Psicólogo Jurídico" emparelhado com
+    "Perito em Psicologia Forense" como se fossem 2 títulos dele (título oficial é sempre
+    só "Perito em Psicologia Forense"). Só sinaliza o padrão exato do bug achado em
+    29/08/2026 ("Perito em Psicologia Forense e Psicólogo Jurídico" ou o inverso) —
+    artigos que tratam do tema "psicólogo jurídico" em geral (assunto do blog) não entram."""
+    problems = []
+    padrao = re.compile(
+        r"Perito em Psicologia Forense e Psicólogo Jurídico"
+        r"|Psicólogo Jurídico e Perito em Psicologia Forense"
+    )
+    for f in glob.glob(os.path.join(REPO, "**", "index.html"), recursive=True):
+        if "/_fila/" in f:
+            continue
+        with open(f, encoding="utf-8") as fh:
+            c = fh.read()
+        title_m = re.search(r"<title>(.*?)</title>", c)
+        desc_m = re.search(r'name="description"\s+content="([^"]*)"', c)
+        for label, m in (("title", title_m), ("meta description", desc_m)):
+            if m and padrao.search(m.group(1)):
+                problems.append((os.path.relpath(f, REPO), label))
+    return problems
+
+
+def check_sitemap_domain_consistency():
+    """Toda URL do sitemap.xml deve pertencer ao próprio domínio — uma URL de outro site
+    ali é sinal do mesmo bug de domínio hardcoded (achado em 29/08/2026)."""
+    problems = []
+    if not DOMAIN:
+        return problems
+    try:
+        sm = open(os.path.join(REPO, "sitemap.xml"), encoding="utf-8").read()
+    except Exception:
+        return problems
+    for loc in re.findall(r"<loc>(https?://[^<]+)</loc>", sm):
+        host = re.sub(r"^https?://(www\.)?", "", loc).split("/")[0]
+        if host != DOMAIN:
+            problems.append(loc)
+    return problems
+
+
 def main():
     pages = all_pages()
     real_pages = [p for p in pages if "/_fila/" not in p]
@@ -235,6 +309,35 @@ def main():
             lines.append(f"- {pth}")
         lines.append("")
 
+
+    wrong_domain_scripts = check_wrong_domain_in_scripts()
+    if wrong_domain_scripts:
+        lines.append(f"## \u26a0\ufe0f Domínio errado hardcoded em scripts ({len(wrong_domain_scripts)} caso(s))")
+        for rel, dom in wrong_domain_scripts[:10]:
+            lines.append(f"- **{rel}**: referencia {dom} (deveria ser {DOMAIN})")
+        lines.append("")
+
+    self_serving_review = check_self_serving_review_schema()
+    if self_serving_review:
+        lines.append(f"## \u26a0\ufe0f Schema AggregateRating/Review auto-referenciado ({len(self_serving_review)} página(s))")
+        for rel in self_serving_review[:10]:
+            lines.append(f"- **{rel}**: remover — viola diretriz do Google e decisão fixa do projeto")
+        lines.append("")
+
+    title_violations = check_professional_title_violation()
+    if title_violations:
+        lines.append(f"## \u26a0\ufe0f \"Psicólogo Jurídico\" usado como título ({len(title_violations)} caso(s))")
+        for rel, label in title_violations[:15]:
+            lines.append(f"- **{rel}** ({label}): título oficial é sempre \"Perito em Psicologia Forense\"")
+        lines.append("")
+
+    sitemap_wrong_domain = check_sitemap_domain_consistency()
+    if sitemap_wrong_domain:
+        lines.append(f"## \u26a0\ufe0f URLs de outro domínio no sitemap.xml ({len(sitemap_wrong_domain)})")
+        for loc in sitemap_wrong_domain[:10]:
+            lines.append(f"- {loc}")
+        lines.append("")
+
     dup_in_fila, fila_vs_published = check_fila_slug_collisions(existing_paths)
     if dup_in_fila:
         lines.append(f"## \u26a0\ufe0f Slugs duplicados na fila ({len(dup_in_fila)} caso(s))")
@@ -248,7 +351,7 @@ def main():
         lines.append("")
 
     report = "\n".join(lines)
-    has_manual_issues = bool(struct_errors or dup_titles or seo_issues or img_no_alt or broken_links or sitemap_issues or dup_in_fila or fila_vs_published)
+    has_manual_issues = bool(struct_errors or dup_titles or seo_issues or img_no_alt or broken_links or sitemap_issues or dup_in_fila or fila_vs_published or wrong_domain_scripts or self_serving_review or title_violations or sitemap_wrong_domain)
 
     with open(os.environ.get("GITHUB_STEP_SUMMARY", "/tmp/qa_summary.md"), "a", encoding="utf-8") as fh:
         fh.write(report if report else "## ✅ Tudo limpo — nenhum problema encontrado.\n")
