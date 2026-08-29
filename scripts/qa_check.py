@@ -112,6 +112,47 @@ def check_blog_listing_completeness():
     return {k: v for k, v in problems.items() if v}
 
 
+
+def check_oversized_images():
+    """Imagens acima de 300KB pesam no LCP/performance — achado real em 29/08/2026
+    (nenhuma encontrada nos 4 sites, mas vale checar sempre que novo conteúdo entrar)."""
+    problems = []
+    for f in glob.glob(os.path.join(REPO, "assets", "**", "*"), recursive=True):
+        if f.lower().endswith((".jpg", ".jpeg", ".png", ".webp")):
+            try:
+                size = os.path.getsize(f)
+            except OSError:
+                continue
+            if size > 300 * 1024:
+                problems.append((os.path.relpath(f, REPO), size // 1024))
+    return problems
+
+
+def check_corrupted_schema_url_fields():
+    """Campo "url" dentro de qualquer bloco JSON-LD deve ser uma URL de verdade (começar
+    com http). Achado real em 29/08/2026: um artigo tinha a descrição inteira concatenada
+    no campo url por um bug de geração de schema, sem separador."""
+    problems = []
+    for f in glob.glob(os.path.join(REPO, "**", "index.html"), recursive=True):
+        if "/_fila/" in f:
+            continue
+        with open(f, encoding="utf-8") as fh:
+            c = fh.read()
+        for block in re.findall(r'<script type="application/ld\+json"[^>]*>(.*?)</script>', c, re.S):
+            try:
+                data = json.loads(block)
+            except Exception:
+                continue
+            candidates = data if isinstance(data, list) else [data]
+            for node in candidates:
+                if not isinstance(node, dict):
+                    continue
+                url_val = node.get("url")
+                if isinstance(url_val, str) and url_val and not url_val.startswith("http"):
+                    problems.append(os.path.relpath(f, REPO))
+    return problems
+
+
 def check_fila_slug_collisions(existing_paths):
     """Detecta slugs duplicados dentro da fila e slugs da fila que colidem com pastas já publicadas."""
     import json
@@ -381,6 +422,21 @@ def main():
             lines.append(f"- **{categoria}**: {len(itens)} — {', '.join(itens[:5])}")
         lines.append("")
 
+
+    oversized_images = check_oversized_images()
+    if oversized_images:
+        lines.append(f"## \u26a0\ufe0f Imagens acima de 300KB ({len(oversized_images)})")
+        for rel, kb in oversized_images[:15]:
+            lines.append(f"- **{rel}**: {kb}KB")
+        lines.append("")
+
+    corrupted_schema_urls = check_corrupted_schema_url_fields()
+    if corrupted_schema_urls:
+        lines.append(f"## \u26a0\ufe0f Campo url corrompido em schema JSON-LD ({len(corrupted_schema_urls)} página(s))")
+        for rel in corrupted_schema_urls[:15]:
+            lines.append(f"- **{rel}**")
+        lines.append("")
+
     dup_in_fila, fila_vs_published = check_fila_slug_collisions(existing_paths)
     if dup_in_fila:
         lines.append(f"## \u26a0\ufe0f Slugs duplicados na fila ({len(dup_in_fila)} caso(s))")
@@ -394,7 +450,7 @@ def main():
         lines.append("")
 
     report = "\n".join(lines)
-    has_manual_issues = bool(struct_errors or dup_titles or seo_issues or img_no_alt or broken_links or sitemap_issues or dup_in_fila or fila_vs_published or wrong_domain_scripts or self_serving_review or title_violations or sitemap_wrong_domain or blog_listing_issues)
+    has_manual_issues = bool(struct_errors or dup_titles or seo_issues or img_no_alt or broken_links or sitemap_issues or dup_in_fila or fila_vs_published or wrong_domain_scripts or self_serving_review or title_violations or sitemap_wrong_domain or blog_listing_issues or oversized_images or corrupted_schema_urls)
 
     with open(os.environ.get("GITHUB_STEP_SUMMARY", "/tmp/qa_summary.md"), "a", encoding="utf-8") as fh:
         fh.write(report if report else "## ✅ Tudo limpo — nenhum problema encontrado.\n")
