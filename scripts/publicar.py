@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Publica 1 artigo/dia da _fila para a raiz do site (perito)."""
+"""Publica 1 artigo/dia da _fila para a raiz do site (robisonsouza)."""
 import os, json, re, shutil, datetime, html, sys
 HOJE = datetime.date.today()
 MESES = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro']
@@ -27,7 +27,7 @@ idx = re.sub(r'(\d+) artigos t', lambda m: f'{int(m.group(1))+1} artigos t', idx
 open('blog/index.html', 'w', encoding='utf-8').write(idx)
 # sitemap
 sm = open('sitemap.xml', encoding='utf-8').read()
-url = f'https://peritoempsicologiaforense.com.br/{slug}/'
+url = f'https://robisonsouza.com.br/{slug}/'
 if url not in sm:
     sm = sm.replace('</urlset>', f'<url><loc>{url}</loc></url></urlset>')
     open('sitemap.xml', 'w', encoding='utf-8').write(sm)
