@@ -204,6 +204,22 @@ def check_missing_twitter_card():
     return problems
 
 
+
+def check_rss_feed_valid():
+    """blog/feed.xml precisa ser XML bem-formado — achado real em 29/08/2026: um "&"
+    sem escapar em "Ceci & Bruck" (citacao academica) quebrava o parser de qualquer
+    leitor de RSS."""
+    import xml.etree.ElementTree as ET
+    feed_path = os.path.join(REPO, "blog", "feed.xml")
+    if not os.path.exists(feed_path):
+        return None
+    try:
+        ET.parse(feed_path)
+        return None
+    except Exception as e:
+        return str(e)
+
+
 def check_fila_slug_collisions(existing_paths):
     """Detecta slugs duplicados dentro da fila e slugs da fila que colidem com pastas já publicadas."""
     import json
@@ -504,6 +520,13 @@ def main():
             lines.append(f"- **{rel}**")
         lines.append("")
 
+
+    rss_error = check_rss_feed_valid()
+    if rss_error:
+        lines.append("## \u26a0\ufe0f blog/feed.xml com XML invalido")
+        lines.append(f"- {rss_error}")
+        lines.append("")
+
     dup_in_fila, fila_vs_published = check_fila_slug_collisions(existing_paths)
     if dup_in_fila:
         lines.append(f"## \u26a0\ufe0f Slugs duplicados na fila ({len(dup_in_fila)} caso(s))")
@@ -517,7 +540,7 @@ def main():
         lines.append("")
 
     report = "\n".join(lines)
-    has_manual_issues = bool(struct_errors or dup_titles or seo_issues or img_no_alt or broken_links or sitemap_issues or dup_in_fila or fila_vs_published or wrong_domain_scripts or self_serving_review or title_violations or sitemap_wrong_domain or blog_listing_issues or oversized_images or corrupted_schema_urls or schema_mismatches or missing_twitter_card)
+    has_manual_issues = bool(struct_errors or dup_titles or seo_issues or img_no_alt or broken_links or sitemap_issues or dup_in_fila or fila_vs_published or wrong_domain_scripts or self_serving_review or title_violations or sitemap_wrong_domain or blog_listing_issues or oversized_images or corrupted_schema_urls or schema_mismatches or missing_twitter_card or rss_error)
 
     with open(os.environ.get("GITHUB_STEP_SUMMARY", "/tmp/qa_summary.md"), "a", encoding="utf-8") as fh:
         fh.write(report if report else "## ✅ Tudo limpo — nenhum problema encontrado.\n")
