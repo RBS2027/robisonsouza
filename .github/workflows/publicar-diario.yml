@@ -2,6 +2,8 @@ name: Publicar artigo diario
 on:
   schedule:
     - cron: '5 12 * * *'
+    - cron: '5 15 * * *'
+    - cron: '5 18 * * *'
   workflow_dispatch: {}
 permissions:
   contents: write
