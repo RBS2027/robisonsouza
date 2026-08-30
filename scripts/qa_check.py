@@ -221,6 +221,37 @@ def check_rss_feed_valid():
 
 
 
+def check_stale_css_preload():
+    """O arquivo _headers pode ter um preload hint apontando pra uma versao antiga
+    do CSS (?v=N) diferente da versao realmente usada nas paginas (<link ... ?v=M>) —
+    quando isso acontece, o preload nao serve pra nada (o navegador baixa um recurso
+    que a pagina nem usa) — achado real em 30/08/2026 (depoimentoespecial v=45 vs v=58
+    real; estudopsicossocial v=36 vs v=49 real). So se aplica a sites que tem esse
+    preload hint (perito/robisonsouza nao tem, e ok)."""
+    headers_path = os.path.join(REPO, "_headers")
+    if not os.path.exists(headers_path):
+        return None
+    with open(headers_path, encoding="utf-8") as fh:
+        headers_content = fh.read()
+    m = re.search(r'Link:\s*</assets/(style|site)\.css\?v=(\d+)>;\s*rel=preload', headers_content)
+    if not m:
+        return None
+    css_name, preload_v = m.group(1), m.group(2)
+    home_path = os.path.join(REPO, "index.html")
+    if not os.path.exists(home_path):
+        return None
+    with open(home_path, encoding="utf-8") as fh:
+        home_content = fh.read()
+    real_m = re.search(rf'{css_name}\.css\?v=(\d+)', home_content)
+    if not real_m:
+        return None
+    real_v = real_m.group(1)
+    if preload_v != real_v:
+        return f"_headers tem preload para v={preload_v}, mas a home usa v={real_v}"
+    return None
+
+
+
 def check_insecure_internal_links():
     """Link interno (href/src) para o proprio dominio usando http:// em vez de https://
     forca um redirecionamento desnecessario a cada clique — achado real em 29/08/2026
@@ -608,6 +639,13 @@ def main():
         lines.append("")
 
 
+    stale_css_preload = check_stale_css_preload()
+    if stale_css_preload:
+        lines.append("## \u26a0\ufe0f Preload de CSS em _headers desatualizado")
+        lines.append(f"- {stale_css_preload}")
+        lines.append("")
+
+
     insecure_links = check_insecure_internal_links()
     if insecure_links:
         lines.append(f"## \u26a0\ufe0f Link interno com http:// em vez de https:// ({len(insecure_links)} pagina(s))")
@@ -653,7 +691,7 @@ def main():
         lines.append("")
 
     report = "\n".join(lines)
-    has_manual_issues = bool(struct_errors or dup_titles or seo_issues or img_no_alt or broken_links or sitemap_issues or dup_in_fila or fila_vs_published or wrong_domain_scripts or self_serving_review or title_violations or sitemap_wrong_domain or blog_listing_issues or oversized_images or corrupted_schema_urls or schema_mismatches or missing_twitter_card or rss_error or insecure_links or missing_trailing_slash or stale_fila_refs or missing_assets)
+    has_manual_issues = bool(struct_errors or dup_titles or seo_issues or img_no_alt or broken_links or sitemap_issues or dup_in_fila or fila_vs_published or wrong_domain_scripts or self_serving_review or title_violations or sitemap_wrong_domain or blog_listing_issues or oversized_images or corrupted_schema_urls or schema_mismatches or missing_twitter_card or rss_error or insecure_links or missing_trailing_slash or stale_fila_refs or missing_assets or stale_css_preload)
 
     with open(os.environ.get("GITHUB_STEP_SUMMARY", "/tmp/qa_summary.md"), "a", encoding="utf-8") as fh:
         fh.write(report if report else "## ✅ Tudo limpo — nenhum problema encontrado.\n")
