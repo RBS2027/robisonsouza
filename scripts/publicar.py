@@ -3,6 +3,11 @@
 import os, json, re, shutil, datetime, html, sys
 HOJE = datetime.date.today()
 MESES = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro']
+# TRAVA DE IDEMPOTENCIA: se o artigo mais recente ja tem a data de hoje, nao publica de novo
+# (protege contra disparo manual/watchdog no mesmo dia em que o cron ja rodou)
+_posts_check = json.load(open('blog/posts.json', encoding='utf-8'))
+if _posts_check and _posts_check[0].get('date') == HOJE.isoformat():
+    print(f'ja publicado hoje ({HOJE.isoformat()}) — nada a fazer.'); sys.exit(0)
 fila = sorted(d for d in os.listdir('_fila') if os.path.isdir(os.path.join('_fila', d)))
 if not fila:
     print('fila vazia'); sys.exit(0)
