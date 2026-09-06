@@ -22,6 +22,15 @@ jobs:
       - name: Rodar verificação (corrige o que é seguro, reporta o resto)
         run: python3 scripts/qa_check.py
 
+      - name: Preparar checagem visual (Playwright + Pillow)
+        run: |
+          pip install --quiet playwright pillow
+          python3 -m playwright install --with-deps chromium
+
+      - name: Rodar checagem visual (renderiza a home num navegador real)
+        run: python3 scripts/visual_check.py
+        continue-on-error: true
+
       - name: Commitar correções automáticas (se houver)
         run: |
           git config user.name "QA automático"
