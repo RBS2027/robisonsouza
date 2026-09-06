@@ -45,12 +45,17 @@ jobs:
         if: always()
         run: |
           if [ -s /tmp/qa_report_body.md ]; then
+            {
+              echo "📋 **Para corrigir**: copie este alerta (ou cole o link desta issue) numa conversa com o Claude e peça pra investigar e corrigir. Isso não é corrigido sozinho — precisa ser trazido pra uma conversa ativa."
+              echo ""
+              cat /tmp/qa_report_body.md
+            } > /tmp/qa_report_final.md
             TITLE="🔎 Verificação de qualidade encontrou pontos pra revisar"
             EXISTING=$(gh issue list --search "in:title \"$TITLE\"" --state open --json number --jq '.[0].number')
             if [ -n "$EXISTING" ] && [ "$EXISTING" != "null" ]; then
-              gh issue comment "$EXISTING" --body-file /tmp/qa_report_body.md
+              gh issue comment "$EXISTING" --body-file /tmp/qa_report_final.md
             else
-              gh issue create --title "$TITLE" --body-file /tmp/qa_report_body.md
+              gh issue create --title "$TITLE" --body-file /tmp/qa_report_final.md
             fi
           fi
         env:
