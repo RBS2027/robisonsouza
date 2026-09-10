@@ -225,3 +225,8 @@ input,textarea,select{font-size:16px}
 @media(max-width:520px){.caixa-autor{flex-direction:column;text-align:center}}
 
 @media(max-width:480px){.zap{padding:.5rem;right:.85rem;bottom:.85rem;gap:0}.zap img{width:38px;height:38px}.zap span{display:none}.zap{opacity:0;transform:translateY(12px);pointer-events:none;transition:opacity .25s ease,transform .25s ease}.zap.zap-visivel{opacity:1;transform:none;pointer-events:auto}}
+
+/* FAQ (achado 10/09: classe usada no HTML mas sem CSS nenhum - respostas e perguntas sem nenhuma formatacao) */
+.faq dt{position:relative;padding-left:2rem;font-weight:700;color:var(--ouro);font-family:'Inter',sans-serif;font-size:1rem;margin-top:1.3rem}
+.faq dt::before{content:"?";position:absolute;left:0;top:.08em;display:flex;align-items:center;justify-content:center;width:1.35rem;height:1.35rem;border-radius:50%;background:linear-gradient(135deg,var(--ouro-claro),var(--ouro));color:var(--verde-2);font-weight:800;font-size:.85rem}
+.faq dd{padding-left:2rem;margin:.4rem 0 0;color:var(--texto)}
