@@ -159,7 +159,7 @@ footer.site a:hover{color:var(--ouro-vivo);transform:translateX(3px)}
 @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
 
 /* Badges + caixa de sub-hero do herói (padrão unificado dos 4 sites, na paleta própria clara/dourada) */
-.heroi .sub-hero{background:var(--marfim);color:var(--verde-2);padding:.14em .5em;box-shadow:0 2px 14px rgba(0,0,0,.28);-webkit-box-decoration-break:clone;box-decoration-break:clone;font-weight:700}
+.heroi .sub-hero{background:var(--marfim);color:var(--verde-2);padding:.14em .5em;-webkit-box-decoration-break:clone;box-decoration-break:clone;font-weight:700}
 .heroi p.sub-wrap{max-width:50ch;margin:1.15rem 0 1.25rem}
 @media(min-width:760px){.heroi .sub-hero{font-size:clamp(.78rem,1.44vw,1.06rem)}}
 .heroi .manifesto{font-family:'Fraunces',Georgia,serif;font-style:italic;font-weight:500;font-size:1.5rem;line-height:1.5;color:var(--ouro-vivo);max-width:56ch;margin-bottom:1rem}
