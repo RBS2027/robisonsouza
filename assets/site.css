@@ -37,9 +37,9 @@ header.site{background:rgba(8,28,22,.82);color:#fff;position:sticky;top:0;z-inde
   border-bottom:1px solid rgba(220,182,113,.28);isolation:isolate}
 header.site::before{content:"";position:absolute;inset:0;backdrop-filter:blur(14px);z-index:-1}
 header.site .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding-block:.75rem;flex-wrap:wrap}
-.brand{flex-shrink:0}
+.brand{flex-shrink:0;min-width:0;max-width:100%}
 .brand{display:flex;align-items:center;gap:.7rem;text-decoration:none;color:#fff}
-.brand img{height:46px}
+.brand img{height:46px;width:auto;max-width:100%}
 nav.principal{display:flex;gap:1.5rem;font-family:'Inter',sans-serif;font-size:.8rem;letter-spacing:.09em;text-transform:uppercase}
 nav.principal a{color:#E9E2D2;text-decoration:none;position:relative;padding:.4rem 0}
 nav.principal a:not(.cta-topo)::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--ouro-vivo);transition:.3s}
