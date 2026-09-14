@@ -233,3 +233,4 @@ input,textarea,select{font-size:16px}
 .faq dd{padding-left:2rem;margin:.4rem 0 0;color:var(--texto)}
 .prosa figure.capa{margin:1.2rem 0 1.6rem}.prosa figure.capa img{width:100%;height:auto;border-radius:14px;display:block}
 .prosa a.lei{text-decoration:underline dotted;text-underline-offset:3px}
+.prosa figure.diagrama{margin:1.6rem 0 2rem;padding:0}.prosa figure.diagrama svg{display:block;border:1px solid rgba(201,162,39,.35);border-radius:18px}.prosa figure.diagrama figcaption{font-size:.9rem;color:#4a5a55;margin-top:.5rem;text-align:center;font-family:'Inter',sans-serif}
