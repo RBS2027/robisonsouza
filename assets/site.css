@@ -231,3 +231,5 @@ input,textarea,select{font-size:16px}
 .faq dt{position:relative;padding-left:2rem;font-weight:700;color:#846a19;font-family:'Inter',sans-serif;font-size:1rem;margin-top:1.3rem}
 .faq dt::before{content:"?";position:absolute;left:0;top:.08em;display:flex;align-items:center;justify-content:center;width:1.35rem;height:1.35rem;border-radius:50%;background:linear-gradient(135deg,var(--ouro-claro),var(--ouro));color:var(--verde-2);font-weight:800;font-size:.85rem}
 .faq dd{padding-left:2rem;margin:.4rem 0 0;color:var(--texto)}
+.prosa figure.capa{margin:1.2rem 0 1.6rem}.prosa figure.capa img{width:100%;height:auto;border-radius:14px;display:block}
+.prosa a.lei{text-decoration:underline dotted;text-underline-offset:3px}
