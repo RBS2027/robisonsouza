@@ -16,7 +16,7 @@ pasta = os.path.join('_fila', item)
 meta = json.load(open(os.path.join(pasta, 'meta.json'), encoding='utf-8'))
 slug, h1, desc = meta['slug'], meta['h1'], meta['desc']
 t = open(os.path.join(pasta, 'index.html'), encoding='utf-8').read()
-t = t.replace('{{DATA}}', HOJE.strftime('%d/%m/%Y'))
+t = t.replace('{{DATA}}', HOJE.strftime('%d/%m/%Y')).replace('{{DATA_ISO}}', HOJE.isoformat())
 os.makedirs(slug, exist_ok=True)
 open(os.path.join(slug, 'index.html'), 'w', encoding='utf-8').write(t)
 shutil.rmtree(pasta)
