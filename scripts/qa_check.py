@@ -512,7 +512,12 @@ def main():
         sm = open(sitemap_path, encoding="utf-8", errors="replace").read()
         urls_in_sitemap = set(re.findall(r'<loc>https?://[^/]+(/[^<]*)</loc>', sm))
         noindex_hint = {"/inscrito/", "/obrigado/"}
-        missing = sorted(p for p in existing_paths if p not in urls_in_sitemap and p not in noindex_hint)
+        def _noindex(rel):
+            try:
+                return 'name="robots" content="noindex' in open(os.path.join(REPO, rel.strip("/"), "index.html"), encoding="utf-8", errors="replace").read()[:6000]
+            except Exception:
+                return False
+        missing = sorted(p for p in existing_paths if p not in urls_in_sitemap and p not in noindex_hint and not _noindex(p))
         if missing:
             sitemap_issues = missing[:15]
 
