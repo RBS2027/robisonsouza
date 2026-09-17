@@ -187,7 +187,7 @@ aside.sumario{position:sticky;top:100px;font-family:var(--sans);font-size:.8rem;
 aside.sumario strong{display:block;font-size:.64rem;letter-spacing:.22em;text-transform:uppercase;color:var(--dourado);margin-bottom:.6rem}
 aside.sumario a{display:block;color:var(--texto-suave);text-decoration:none;padding:.28rem 0;transition:.2s}
 aside.sumario a:hover{color:var(--dourado);transform:translateX(4px)}
-@media(max-width:900px){.leiaute-artigo{grid-template-columns:1fr}aside.sumario{display:none}}
+@media(max-width:900px){.leiaute-artigo{grid-template-columns:minmax(0,1fr)}.leiaute-artigo article.prosa{min-width:0;max-width:100%}aside.sumario{display:none}}
 
 /* Tabelas (padrão dos portais) */
 article.prosa table,.prosa table,table.wp-block-table{width:100%;border-collapse:collapse;margin:1.25rem 0 1.5rem;font-size:.92rem;border:1px solid var(--linha-forte);border-radius:10px;overflow:hidden}
