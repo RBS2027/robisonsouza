@@ -366,3 +366,21 @@ button[style*="#0E2721"],[style*="background:#0E2721"]:not(.rbs-logo){background
 svg[fill="#DCB671"]{fill:var(--papel)}
 .heroi{background:linear-gradient(100deg,rgba(243,238,231,.99) 46%,rgba(243,238,231,.9) 60%,rgba(234,223,209,.35) 100%),url('/assets/img/escritorio.webp') right 15%/cover no-repeat}
 @media(max-width:640px){.heroi{background:linear-gradient(rgba(243,238,231,.95),rgba(243,238,231,.97)),url('/assets/img/escritorio.webp') center 15%/cover no-repeat}}
+/* formulário de contato — tema claro */
+section.form-home{background:var(--verde)!important;padding:3.5rem 0 3rem!important}
+section.form-home .wrap{max-width:720px!important;background:var(--papel);border:1px solid var(--linha);border-radius:18px;padding:2.4rem 2rem 2.2rem;box-shadow:0 18px 44px rgba(59,48,40,.08)}
+section.form-home h2{color:var(--escuro-2)!important;font-size:clamp(1.5rem,2.6vw,2rem);margin-bottom:.5rem!important}
+section.form-home h2::after{left:50%;transform:translateX(-50%);margin-left:0;background:linear-gradient(90deg,transparent,var(--cobre),transparent);width:4.5rem}
+section.form-home p{color:var(--mudo,var(--texto-suave))!important;font-size:1rem;margin-bottom:1.6rem!important}
+section.form-home form{gap:.85rem!important}
+section.form-home input:not([type=hidden]),section.form-home textarea{background:#fff!important;border:1px solid #D9C9B4!important;border-radius:10px!important;padding:.9rem 1.05rem!important;font-family:var(--serif,'Lora',Georgia,serif);font-size:1rem;color:var(--escuro-2)!important;transition:border-color .2s,box-shadow .2s}
+section.form-home input::placeholder,section.form-home textarea::placeholder{color:#8F8175}
+section.form-home input:focus,section.form-home textarea:focus{outline:none;border-color:var(--cobre)!important;box-shadow:0 0 0 3px rgba(166,111,62,.15)}
+section.form-home button[type=submit]{justify-self:stretch!important;width:100%;padding:1rem 1.4rem;font-size:.9rem;letter-spacing:.08em;border-radius:999px}
+@media(min-width:640px){section.form-home form{grid-template-columns:1fr 1fr}section.form-home textarea,section.form-home button[type=submit],section.form-home input[name=assunto]{grid-column:1/-1}}
+@media(max-width:640px){section.form-home .wrap{padding:1.8rem 1.2rem}}
+#rbs-fonte-preferida-btn{background:var(--papel)!important;color:var(--escuro-2)!important;border:1px solid var(--linha-f,var(--linha-forte))!important;box-shadow:0 4px 14px rgba(59,48,40,.08)}
+#rbs-fonte-preferida-btn svg{fill:var(--cobre)!important}
+section.form-home h2::after{display:none}
+section.form-home input:not([type=hidden]),section.form-home textarea{width:100%!important;max-width:none!important;box-sizing:border-box}
+@media(min-width:640px){section.form-home input[name=assunto]{grid-column:auto}}
