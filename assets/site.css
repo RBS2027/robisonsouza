@@ -1,5 +1,5 @@
 /* ==========================================================================
-   site.css v13 — padrão visual unificado (mesmo sistema dos portais
+   site.css v15 — padrão visual unificado (mesmo sistema dos portais
    depoimentoespecial / estudopsicossocial): verde-abeto contínuo, largura
    total, Fraunces (títulos) + Montserrat (navegação/botões) + Lora (texto).
    ========================================================================== */
@@ -288,3 +288,81 @@ footer.site .colunas+div+p{font-family:var(--sans)!important;font-size:.8rem!imp
 
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 @media print{header.site,footer.site,.zap,.faixa-cta,.selo,.capa-dourada,aside.sumario,iframe{display:none!important}body{background:#fff;color:#111}h1,h2,h3{color:#000}}
+
+/* ==========================================================================
+   TEMA CLARO v15 (25/09/2026) — paleta do site modelo robison.psc.br:
+   fundo creme, cartões areia, texto marrom-escuro, cobre como acento,
+   botão escuro. Sobrepõe as variáveis e regras do tema verde acima.
+   ========================================================================== */
+:root{
+  --verde:#F3EEE7; --verde-2:#EADFD1; --verde-3:#E6D9CA; --marinho:#FAF7F2;
+  --dourado:#A66F3E; --dourado-vivo:#B8804F; --dourado-escuro:#8A5A30; --champanhe:#8A5A30;
+  --offwhite:#3B3028; --offwhite-2:#52473E;
+  --texto:#3B3028; --texto-suave:#69594D;
+  --linha:rgba(166,111,62,.22); --linha-forte:rgba(166,111,62,.38);
+  --cartao:#E6D9CA; --cartao-hover:#DCC7B0;
+  --escuro:#4E4035; --escuro-2:#3B3028; --papel:#FFFDFA; --areia:#E6D9CA; --areia-2:#EAD9C3; --cobre:#A66F3E;
+}
+body{background:var(--verde);color:var(--texto)}
+h1,h2,h3,h4{color:var(--escuro-2)}
+a{color:var(--cobre)}a:hover{color:var(--dourado-escuro)}
+::selection{background:var(--areia);color:var(--escuro-2)}
+.ouro-grad,.heroi h1 .ouro-grad{background:none;color:var(--cobre);-webkit-text-fill-color:var(--cobre)}
+.capa-dourada{background:linear-gradient(90deg,var(--cobre),var(--areia-2),var(--cobre))}
+.selo{background:var(--marinho);color:var(--texto-suave)}
+header.site{background:rgba(250,247,242,.9);border-bottom:1px solid var(--linha)}
+nav.principal a{color:var(--escuro-2)}
+nav.principal a:not(.cta-topo):hover{color:var(--cobre)}
+.cta-topo,nav.principal a.cta-topo,.botao.ouro,.btn:not(.ghost),.heroi .badge.dourado{background:var(--escuro)!important;color:var(--papel)!important;box-shadow:0 6px 18px rgba(59,48,40,.18)}
+.botao.ouro:hover,.btn:not(.ghost):hover,.cta-topo:hover{background:var(--escuro-2)!important;color:var(--papel)!important;box-shadow:0 12px 26px rgba(59,48,40,.25)}
+.botao.vazado,.btn.ghost{background:var(--areia);color:var(--escuro-2);border:1px solid var(--areia)}
+.botao.vazado:hover,.btn.ghost:hover{background:var(--cartao-hover);color:var(--escuro-2)}
+.menu-btn span{background:var(--escuro-2)}
+.heroi{color:var(--texto);background:linear-gradient(105deg,rgba(243,238,231,.98) 40%,rgba(243,238,231,.86) 68%,rgba(234,223,209,.55)),url('/assets/img/escritorio.webp') right 15%/cover no-repeat;border-bottom:1px solid var(--linha)}
+.heroi h1,.heroi .rotulo+h1{color:var(--escuro-2)}
+.heroi .rotulo,.rotulo,.eyebrow{color:var(--cobre)}
+.heroi p,.heroi .sub-desc{color:var(--texto-suave)}
+.heroi .sub-hero{background:var(--papel);color:var(--escuro-2);border-left:3px solid var(--cobre)}
+.heroi .manifesto{color:var(--escuro-2)}
+.heroi .badge{background:var(--papel);border-color:var(--linha);color:var(--texto)}
+.stats{color:var(--texto)}
+.stats .grade>div{background:var(--papel);border:1px solid var(--linha)}
+.stats .grade>div:nth-child(2n){background:var(--areia)}
+.stats small{color:var(--texto-suave)}
+section h2::after,.eyebrow+h2::after{background:linear-gradient(90deg,var(--cobre),transparent)}
+h2[style*="text-align:center"]::after,h2[style*="text-align: center"]::after{background:linear-gradient(90deg,transparent,var(--cobre),transparent)}
+article.prosa h2::before{background:linear-gradient(90deg,var(--cobre),transparent)}
+article.prosa strong{color:var(--escuro-2)}
+article.prosa tr:nth-child(even) td{background:rgba(230,217,202,.45)}
+article.prosa th{background:var(--areia);color:var(--escuro-2)}
+.prosa figure.diagrama svg{background:var(--papel)}
+[style*="background:#faf8f4"],section[style*="#faf8f4"]{background:var(--areia)!important;border-color:var(--linha)!important;color:var(--texto)!important}
+[style*="color:#666"],[style*="color:#4a5a55"]{color:var(--texto-suave)!important}
+input[style*="rgba(0,0,0,.03)"],textarea[style*="rgba(0,0,0,.03)"]{background:var(--papel)!important;color:var(--texto)!important;border-color:var(--linha)!important}
+input,textarea,select{background:var(--papel);color:var(--texto);border:1px solid var(--linha-forte)}
+.rbs-autor-2026,.rbs-promo-2026{border-color:var(--linha)!important}
+.rbs-autor-2026{border-left-color:var(--cobre)!important}
+.rbs-nav-2026 a{color:var(--cobre)}
+.rbs-logo{background:var(--escuro)!important}
+.faixa-cta{background:var(--areia)!important;color:var(--escuro-2)}
+.faixa-cta h2,.faixa-cta p{color:var(--escuro-2)}
+.caixa-autor{background:var(--papel);border:1px solid var(--linha)}
+.caixa-autor img{border-color:var(--cobre)}
+.chip{background:var(--areia);color:var(--escuro-2);border-color:transparent}
+footer.site{background:var(--areia);color:var(--escuro-2);border-top:1px solid var(--linha-forte)}
+footer.site a{color:var(--escuro-2)}
+footer.site a:hover{color:var(--cobre)}
+footer.site h3.ft,footer.site .colunas p[style*="letter-spacing"]{color:var(--cobre)!important}
+footer.site p[style*="ouro-claro"]{color:var(--dourado-escuro)!important}
+footer.site .colunas+div{border-color:var(--linha-forte)!important}
+footer.site .colunas+div+p{color:var(--texto-suave)}
+.assin-final{color:var(--texto-suave);border-top:1px solid var(--linha-forte)}
+.zap{box-shadow:0 8px 22px rgba(59,48,40,.25)}
+/* ajustes v15.1 */
+.heroi{background:linear-gradient(105deg,rgba(243,238,231,.98) 38%,rgba(243,238,231,.8) 62%,rgba(234,223,209,.25)),url('/assets/img/escritorio.webp') right 15%/cover no-repeat}
+.svc h3,.passo h3,.cartao h3,article.prosa h1,article.prosa h2,article.prosa h3,.leiaute-artigo h1{color:var(--escuro-2)}
+.svc .num{color:var(--cobre)}
+button[style*="#0E2721"],[style*="background:#0E2721"]:not(.rbs-logo){background:var(--escuro)!important;border-color:var(--escuro)!important;color:var(--papel)!important}
+svg[fill="#DCB671"]{fill:var(--papel)}
+.heroi{background:linear-gradient(100deg,rgba(243,238,231,.99) 46%,rgba(243,238,231,.9) 60%,rgba(234,223,209,.35) 100%),url('/assets/img/escritorio.webp') right 15%/cover no-repeat}
+@media(max-width:640px){.heroi{background:linear-gradient(rgba(243,238,231,.95),rgba(243,238,231,.97)),url('/assets/img/escritorio.webp') center 15%/cover no-repeat}}
