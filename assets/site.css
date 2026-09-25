@@ -384,3 +384,17 @@ section.form-home button[type=submit]{justify-self:stretch!important;width:100%;
 section.form-home h2::after{display:none}
 section.form-home input:not([type=hidden]),section.form-home textarea{width:100%!important;max-width:none!important;box-sizing:border-box}
 @media(min-width:640px){section.form-home input[name=assunto]{grid-column:auto}}
+/* faixas alternadas de fundo por seção (creme / branco quente / areia) */
+main section:not(.heroi):not(.hero):nth-of-type(3n+1){background:#F3EEE7!important}
+main section:not(.heroi):not(.hero):nth-of-type(3n+2){background:#FFFDFA!important}
+main section:not(.heroi):not(.hero):nth-of-type(3n+3){background:#EADFD1!important}
+main section.heroi,main section.hero{background-color:#F3EEE7}
+main section:not(.heroi):not(.hero){padding-top:3rem!important;padding-bottom:3rem!important;border-top:1px solid rgba(166,111,62,.10)}
+main section.stats{padding-top:2rem!important;padding-bottom:2rem!important}
+main section.form-home{padding-top:3.5rem!important;padding-bottom:3rem!important}
+main section .wrap,main section.wrap{background:transparent!important}
+main section:nth-of-type(3n+1) .card:nth-child(2n),main section:nth-of-type(3n+1) .stats>div:nth-child(2n),main section:nth-of-type(3n+1) .grid3 .card:nth-child(2n){background:#FFFDFA}
+main section:nth-of-type(3n+3) .card,main section:nth-of-type(3n+3) .passo,main section:nth-of-type(3n+3) .perguntas>div,main section:nth-of-type(3n+3) .stats>div,main section:nth-of-type(3n+3) .grid3 .card{background:#FFFDFA}
+main section:nth-of-type(3n+3) .card:nth-child(2n),main section:nth-of-type(3n+3) .grid3 .card:nth-child(2n){background:#F3EEE7}
+h2[style*="text-align:center"]::after,h2[style*="text-align: center"]::after{left:50%!important;transform:translateX(-50%)!important;margin-left:auto;margin-right:auto}
+@media(max-width:640px){main section:not(.heroi):not(.hero){padding-top:2.2rem!important;padding-bottom:2.2rem!important}}
