@@ -401,3 +401,7 @@ h2[style*="text-align:center"]::after,h2[style*="text-align: center"]::after{lef
 
 .rbs-portal-2026{background:var(--areia,#E6D9CA);border-left:3px solid var(--cobre,#A66F3E);padding:.8rem 1rem;border-radius:0 10px 10px 0;margin:1.2rem 0;font-size:.95rem}
 .rbs-portal-2026 a{color:var(--cobre,#A66F3E);font-weight:600}
+
+.rbs-cta-2026{background:#4E4035;color:#FFFDFA;padding:1rem 1.2rem;border-radius:12px;margin:1.6rem 0}
+.rbs-cta-2026 strong{color:#EAD9C3}
+.rbs-cta-2026 a{color:#FFFDFA;text-decoration:underline;font-weight:600}
