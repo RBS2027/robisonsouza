@@ -398,3 +398,6 @@ main section:nth-of-type(3n+3) .card,main section:nth-of-type(3n+3) .passo,main 
 main section:nth-of-type(3n+3) .card:nth-child(2n),main section:nth-of-type(3n+3) .grid3 .card:nth-child(2n){background:#F3EEE7}
 h2[style*="text-align:center"]::after,h2[style*="text-align: center"]::after{left:50%!important;transform:translateX(-50%)!important;margin-left:auto;margin-right:auto}
 @media(max-width:640px){main section:not(.heroi):not(.hero){padding-top:2.2rem!important;padding-bottom:2.2rem!important}}
+
+.rbs-portal-2026{background:var(--areia,#E6D9CA);border-left:3px solid var(--cobre,#A66F3E);padding:.8rem 1rem;border-radius:0 10px 10px 0;margin:1.2rem 0;font-size:.95rem}
+.rbs-portal-2026 a{color:var(--cobre,#A66F3E);font-weight:600}
