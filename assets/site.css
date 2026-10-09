@@ -405,3 +405,19 @@ h2[style*="text-align:center"]::after,h2[style*="text-align: center"]::after{lef
 .rbs-cta-2026{background:#4E4035;color:#FFFDFA;padding:1rem 1.2rem;border-radius:12px;margin:1.6rem 0}
 .rbs-cta-2026 strong{color:#EAD9C3}
 .rbs-cta-2026 a{color:#FFFDFA;text-decoration:underline;font-weight:600}
+/* contraste WCAG AA (09/10/2026): tons de cobre escurecidos só em texto */
+:root{--cobre-texto:#7A4E27}
+.ouro-grad{color:var(--cobre-texto);-webkit-text-fill-color:var(--cobre-texto)}
+.svc .num{-webkit-text-stroke-color:var(--cobre-texto);opacity:1}
+.botao.vazado{color:var(--cobre-texto)!important}
+.faq dt,dl dt{color:var(--cobre-texto)}
+.ticker-faixa span{color:var(--cobre-texto)}
+.rotulo{color:#6B5E3F!important}
+footer.site{--ouro:var(--cobre-texto);--cobre:var(--cobre-texto);--ouro-claro:var(--cobre-texto);--dourado:var(--cobre-texto);--champanhe:var(--cobre-texto)}
+footer.site .ft{color:var(--cobre-texto)}
+footer .legal{color:#5F5449}
+article.prosa a{color:var(--cobre-texto)}
+nav.main a[aria-current="page"]:not([href="/contato/"]){color:var(--cobre-texto)}
+.stats b{color:var(--cobre-texto);-webkit-text-fill-color:var(--cobre-texto)}
+footer.site p[style*="ouro-claro"]{color:var(--cobre-texto)!important}
+.migalha,.migalha a{color:var(--cobre-texto)}
