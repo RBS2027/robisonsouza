@@ -421,3 +421,5 @@ nav.main a[aria-current="page"]:not([href="/contato/"]){color:var(--cobre-texto)
 .stats b{color:var(--cobre-texto);-webkit-text-fill-color:var(--cobre-texto)}
 footer.site p[style*="ouro-claro"]{color:var(--cobre-texto)!important}
 .migalha,.migalha a{color:var(--cobre-texto)}
+
+/* a11y 2026-10-20 */.pular{position:absolute;left:-999px;top:-999px}.pular:focus{left:12px;top:12px;position:fixed;z-index:300;background:#4E4035;color:#FFFDFA;padding:.6rem 1.1rem;border-radius:10px;font-family:'Montserrat',sans-serif;font-weight:600;text-decoration:none}a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid #A66F3E;outline-offset:3px}

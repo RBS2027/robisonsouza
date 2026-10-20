@@ -429,6 +429,28 @@ def check_sitemap_domain_consistency():
     return problems
 
 
+
+def check_a11y_seo_2026(real_pages):
+    """Auditoria 20/10/2026: meta robots, skip-link, img sem width/height, _blank sem noopener, id duplicado, artigo sem capa própria."""
+    out = defaultdict(list)
+    for f in real_pages:
+        rel = os.path.relpath(f, REPO)
+        c = open(f, encoding="utf-8", errors="replace").read()
+        if rel.endswith("404.html"): continue
+        if 'name="robots"' not in c: out["sem meta robots"].append(rel)
+        if "<main" in c and 'class="pular"' not in c: out["sem skip-link"].append(rel)
+        for m in re.finditer(r"<img\b[^>]*>", c):
+            t = m.group(0)
+            if "width=" not in t or "height=" not in t: out["img sem width/height"].append(rel); break
+        for m in re.finditer(r"<a\b[^>]*target=\"_blank\"[^>]*>", c):
+            if "noopener" not in m.group(0): out["target=_blank sem rel=noopener"].append(rel); break
+        ids = re.findall(r'\sid="([^"]+)"', c)
+        dup = {i for i in ids if ids.count(i) > 1}
+        if dup: out["id duplicado"].append(f"{rel}: {sorted(dup)[:3]}")
+        if "/blog/" in rel and 'class="art-hero"' in c and 'src="/assets/img/blog/' not in c: out["artigo sem capa própria"].append(rel)
+        if "/blog/" in rel and 'class="art-hero"' not in c and "<article" in c: out["artigo sem capa própria"].append(rel)
+    return out
+
 def main():
     pages = all_pages()
     real_pages = [p for p in pages if "/_fila/" not in p]
@@ -589,6 +611,13 @@ def main():
         lines.append("")
 
     sitemap_wrong_domain = check_sitemap_domain_consistency()
+    a11y_issues = check_a11y_seo_2026(real_pages)
+    if a11y_issues:
+        total = sum(len(v) for v in a11y_issues.values())
+        lines.append(f"## \u26a0\ufe0f Acessibilidade/SEO 2026 ({total} caso(s))")
+        for k, v in a11y_issues.items():
+            lines.append(f"- {k}: {len(v)} — " + ", ".join(v[:5]))
+        lines.append("")
     if sitemap_wrong_domain:
         lines.append(f"## \u26a0\ufe0f URLs de outro domínio no sitemap.xml ({len(sitemap_wrong_domain)})")
         for loc in sitemap_wrong_domain[:10]:
@@ -696,7 +725,7 @@ def main():
         lines.append("")
 
     report = "\n".join(lines)
-    has_manual_issues = bool(struct_errors or dup_titles or seo_issues or img_no_alt or broken_links or sitemap_issues or dup_in_fila or fila_vs_published or wrong_domain_scripts or self_serving_review or title_violations or sitemap_wrong_domain or blog_listing_issues or oversized_images or corrupted_schema_urls or schema_mismatches or missing_twitter_card or rss_error or insecure_links or missing_trailing_slash or stale_fila_refs or missing_assets or stale_css_preload)
+    has_manual_issues = bool(struct_errors or dup_titles or seo_issues or img_no_alt or broken_links or sitemap_issues or dup_in_fila or fila_vs_published or wrong_domain_scripts or self_serving_review or title_violations or sitemap_wrong_domain or blog_listing_issues or oversized_images or corrupted_schema_urls or schema_mismatches or missing_twitter_card or rss_error or insecure_links or missing_trailing_slash or stale_fila_refs or missing_assets or stale_css_preload or a11y_issues)
 
     with open(os.environ.get("GITHUB_STEP_SUMMARY", "/tmp/qa_summary.md"), "a", encoding="utf-8") as fh:
         fh.write(report if report else "## ✅ Tudo limpo — nenhum problema encontrado.\n")
