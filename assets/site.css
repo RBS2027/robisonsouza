@@ -597,3 +597,7 @@ footer.site .colunas+div{border-color:var(--borda-f)!important;box-shadow:var(--
   .grade-servicos .cartao{padding:1.15rem 1.15rem 1.05rem}
 }
 @media print{body::before{display:none!important}}
+
+/* desempenho: a faixa compacta das páginas internas não carrega a foto de fundo (menos uma imagem por página) */
+.heroi:not(:has(h1)){background:linear-gradient(180deg,#FAF7F2,#F3EEE7)!important}
+aside.sumario:not(:has(a)){display:none}
