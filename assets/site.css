@@ -613,3 +613,8 @@ nav.principal .sub a:not(.cta-topo){text-transform:none;letter-spacing:0;font-si
   nav.principal .sub a:not(.cta-topo){font-size:.95rem;padding:.15rem 0;white-space:normal}}
 /* celular: sem desfoque no cabeçalho (o desfoque prendia o menu aberto dentro da barra) */
 @media(max-width:1020px){header.site{backdrop-filter:none;-webkit-backdrop-filter:none;background:#FFFDFA}nav.principal{background:#FAF7F2}}
+
+/* correções da varredura (10/11): chamada escura com texto claro; linhas sem espaço não estouram a largura */
+article.prosa .rbs-cta-2026 strong,.rbs-cta-2026 strong{color:#EAD9C3!important}
+article.prosa .rbs-cta-2026 a,.rbs-cta-2026 a{color:#FFFDFA!important;text-decoration-color:rgba(255,253,250,.6)}
+article.prosa,article.prose{overflow-wrap:break-word}
