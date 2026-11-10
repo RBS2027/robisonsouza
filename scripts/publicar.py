@@ -44,3 +44,7 @@ feed = feed.replace('</description>', '</description>' + item_xml, 1)
 open('blog/feed.xml', 'w', encoding='utf-8').write(feed)
 print('publicado:', slug, '| restam na fila:', len(fila) - 1)
 print('INDEXNOW_URL=' + url)
+
+# atualiza os blocos de artigos por tema nas páginas de serviço
+import subprocess, sys as _sys
+subprocess.run([_sys.executable, 'scripts/clusters.py'], check=False)

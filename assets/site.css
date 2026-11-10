@@ -601,3 +601,15 @@ footer.site .colunas+div{border-color:var(--borda-f)!important;box-shadow:var(--
 /* desempenho: a faixa compacta das páginas internas não carrega a foto de fundo (menos uma imagem por página) */
 .heroi:not(:has(h1)){background:linear-gradient(180deg,#FAF7F2,#F3EEE7)!important}
 aside.sumario:not(:has(a)){display:none}
+
+/* menu: frentes de atuação sob "Serviços" */
+nav.principal .sub-menu{position:relative;display:inline-flex}
+nav.principal .sub-menu>a:not(.cta-topo)::after{content:"\25BE";position:static;display:inline;width:auto;height:auto;background:none;margin-left:.35rem;font-size:.8em}
+nav.principal .sub{display:none;position:absolute;top:100%;left:0;min-width:17.5rem;flex-direction:column;gap:0;background:var(--papel);border:1px solid var(--borda);border-radius:var(--raio);box-shadow:var(--sombra-2);padding:.45rem;z-index:80}
+nav.principal .sub-menu:hover .sub,nav.principal .sub-menu:focus-within .sub{display:flex}
+nav.principal .sub a:not(.cta-topo){text-transform:none;letter-spacing:0;font-size:.86rem;font-weight:600;padding:.6rem .85rem;border-radius:10px;white-space:nowrap;color:var(--escuro-2)}
+@media(max-width:1020px){nav.principal .sub-menu{flex-direction:column;align-items:flex-start;gap:.7rem}
+  nav.principal .sub{display:flex;position:static;min-width:0;background:none;border:0;box-shadow:none;padding:0 0 0 .9rem;gap:.55rem;border-left:2px solid var(--borda-f);border-radius:0}
+  nav.principal .sub a:not(.cta-topo){font-size:.95rem;padding:.15rem 0;white-space:normal}}
+/* celular: sem desfoque no cabeçalho (o desfoque prendia o menu aberto dentro da barra) */
+@media(max-width:1020px){header.site{backdrop-filter:none;-webkit-backdrop-filter:none;background:#FFFDFA}nav.principal{background:#FAF7F2}}
