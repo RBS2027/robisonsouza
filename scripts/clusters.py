@@ -19,7 +19,7 @@ def main():
         t = open(f, encoding='utf-8').read()
         t = re.sub(r'<!-- cluster-2026 -->.*?<!-- /cluster-2026 -->\n?', '', t, flags=re.S)
         a0 = t.find('<article'); a1 = t.find('</article>')
-        c = [t.find(m, a0) for m in ('<div class="faixa-cta">', '<p class="rbs-cta-2026">', '<!-- rbs-nav-2026 -->')]
+        c = [t.find(m, a0) for m in ('<div class="faixa-cta">', '<p class="rbs-cta-2026">', '<!-- rbs-nav-2026 -->', '<!-- rede-2027 -->')]
         c = [x for x in c if a0 < x < a1]
         i = min(c) if c else a1
         open(f, 'w', encoding='utf-8').write(t[:i] + bloco + t[i:])
