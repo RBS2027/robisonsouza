@@ -69,7 +69,7 @@ def main():
         pagina(modelo, f'temas/{s}', f'{n}: todos os artigos'[:60], f'{n}: todos os artigos', f'{len(itens)} artigos sobre {n[0].lower() + n[1:]}, organizados em uma só página. {intro}'[:152].rsplit(' ', 1)[0] + '.', 'Guia por tema', corpo, [('Início', '/'), ('Temas', '/temas/'), (n, f'/temas/{s}/')])
     lista = ''.join(f'<div class="cartao"><h3><a href="/temas/{s}/" style="text-decoration:none">{e(NOME[s][0])}</a></h3><p>{len(v)} artigos. {e(NOME[s][1])}</p></div>' for s, v in G.items())
     pagina(modelo, 'temas', 'Temas: todos os artigos organizados por assunto', 'Todos os artigos, organizados por tema', f'Os {len(A)} artigos deste site reunidos em {len(G)} temas: depoimento especial, estudo psicossocial, laudos, guarda, alienação parental e outros.'[:155], 'Guia por tema',
-           f'<p>Este site reúne {len(A)} artigos técnicos. Para facilitar a leitura, eles estão agrupados em {len(G)} temas. Escolha o que tem relação com o seu processo.</p>\n<div class="grade-servicos" style="margin:1.2rem 0 2rem">{lista}</div>\n{CTA}', [('Início', '/'), ('Temas', '/temas/')])
+           f'<p>Este site reúne {len(A)} artigos técnicos. Para facilitar a leitura, eles estão agrupados em {len(G)} temas. Escolha o que tem relação com o seu processo.</p>\n<div class="grade-servicos grade-temas" style="margin:1.2rem 0 2rem">{lista}</div>\n{CTA}', [('Início', '/'), ('Temas', '/temas/')])
     # link "Tema deste artigo" em cada artigo
     n_art = 0
     for s, itens in G.items():

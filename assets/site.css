@@ -685,3 +685,4 @@ footer.site .rd27-card span .rd27-nota{display:block;font-family:'Montserrat',Ar
 
 .rede27-tema{font-family:var(--sans);font-size:.9rem;margin:0 0 1.2rem;color:#69594D}
 .rede27-tema a{font-weight:600}
+.grade-temas .cartao::after{content:"Ver artigos \2192"}
