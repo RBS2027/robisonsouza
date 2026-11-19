@@ -6,7 +6,7 @@ import re, os, glob, html, unicodedata
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); os.chdir(REPO)
 GENERICOS = {'assistente técnico', 'quesitos', 'estudo psicossocial', 'depoimento especial', 'alienação parental', 'guarda compartilhada', 'laudo pericial', 'parecer técnico',
              'credibilidade', 'simetria', 'esclarecimentos', 'falsa acusação', 'revisão criminal', 'perita do juízo', 'laudo psicossocial', 'melhor interesse da criança', 'entrevista de avaliação'}
-BOILER = re.compile(r'seu processo tem|seu e-mail|100% online|WhatsApp|marque uma consulta|entre em contato|artigo t[eé]cnico por dia', re.I)
+BOILER = re.compile(r'seu processo tem|seu e-mail|100% online|online ou presencial|WhatsApp|marque uma consulta|entre em contato|artigo t[eé]cnico por dia', re.I)
 def slug(x):
     x = unicodedata.normalize('NFKD', x).encode('ascii', 'ignore').decode().lower()
     return re.sub(r'[^a-z0-9]+', '-', x).strip('-')

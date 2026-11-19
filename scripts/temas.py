@@ -72,7 +72,7 @@ def links_no_texto(G, termos, abre):
             corpo = t[i:j]; feitos = set()
             def troca_p(m):
                 p = m.group(0)
-                if len(feitos) >= 2 or '<a ' in p or re.search(r'seu processo tem|seu e-mail|100% online|WhatsApp|marque uma consulta|entre em contato|artigo t[eé]cnico por dia', p, re.I): return p
+                if len(feitos) >= 2 or '<a ' in p or re.search(r'seu processo tem|seu e-mail|100% online|online ou presencial|WhatsApp|marque uma consulta|entre em contato|artigo t[eé]cnico por dia', p, re.I): return p
                 partes = re.split(r'(<[^>]+>)', p)
                 for k, seg in enumerate(partes):
                     if seg.startswith('<') or len(feitos) >= 2: continue
