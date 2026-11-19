@@ -62,6 +62,7 @@ def main():
                 for u in idx.get(h, ()): cont[u] = cont.get(u, 0) + 1
             for u, n in cont.items():
                 frac = n / max(1, min(len(rimp), len(F[u])))
+                if u == '/' and ru == '/': continue  # páginas iniciais: selos, avaliações reais do Google e formulário são iguais por definição
                 if frac >= LIMITE: achados.append((round(frac * 100), u, f'https://{dom}{ru}'))
     achados.sort(reverse=True)
     print(f'DUPLICADOS_ENTRE_SITES={len(achados)}')
