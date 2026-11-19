@@ -64,7 +64,7 @@ def links_no_texto(G, termos, abre):
     for s, itens in G.items():
         for a in itens:
             t = open(a['f'], encoding='utf-8').read(); t0 = t
-            t = re.sub(r'<a class="tema-lk" href="[^"]*">(.*?)</a>', r'\1', t, flags=re.S)
+            t = re.sub(r'<a class="(?:tema-lk|gl-lk)" href="[^"]*">(.*?)</a>', r'\1', t, flags=re.S)
             i = t.find(abre); j = t.find('<p class="rede27-tema">')
             if i < 0 or j < i:
                 if t != t0: open(a['f'], 'w', encoding='utf-8').write(t)
@@ -127,4 +127,7 @@ def main():
         if loc not in sm: sm = sm.replace('</urlset>', f'<url><loc>{loc}</loc><lastmod>{HOJE}</lastmod></url></urlset>')
     open('sitemap.xml', 'w', encoding='utf-8').write(sm)
     print('temas:', {s: len(v) for s, v in G.items()}, '| artigos com link de tema atualizado:', n_art, '| links no texto:', n_lk)
-if __name__ == '__main__': main()
+if __name__ == '__main__':
+    main()
+    import subprocess, sys
+    subprocess.run([sys.executable, 'scripts/glossario_links.py'], check=False)
