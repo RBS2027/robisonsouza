@@ -686,3 +686,7 @@ footer.site .rd27-card span .rd27-nota{display:block;font-family:'Montserrat',Ar
 .rede27-tema{font-family:var(--sans);font-size:.9rem;margin:0 0 1.2rem;color:#69594D}
 .rede27-tema a{font-weight:600}
 .grade-temas .cartao::after{content:"Ver artigos \2192"}
+/* legivel-celular-2027: nenhum texto abaixo de 12px no celular */
+@media(max-width:700px){.cartao .migalha,.rede27-r,.rd27-sites a i,.colunas.rd27 h3.ft,.rd27-cols h3,.rd27-card b,.rd27-nota,.rd27-perfis b,.rotulo,.prosa .migalha,.prosa .migalha a,.assinatura .chip,.avaliacao .fonte,.wrap.grade small,.badges .badge,.trilhas-t,.ticker-faixa span{font-size:12px!important}}
+/* legivel-celular-2027b: selos em uma linha */
+@media(max-width:700px){.badges .badge{letter-spacing:.02em!important;padding-left:.75rem!important;padding-right:.75rem!important;white-space:nowrap}}
