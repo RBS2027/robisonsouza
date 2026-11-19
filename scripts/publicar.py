@@ -34,7 +34,7 @@ open('blog/index.html', 'w', encoding='utf-8').write(idx)
 sm = open('sitemap.xml', encoding='utf-8').read()
 url = f'https://robisonsouza.com.br/{slug}/'
 if url not in sm:
-    sm = sm.replace('</urlset>', f'<url><loc>{url}</loc></url></urlset>')
+    sm = sm.replace('</urlset>', f'<url><loc>{url}</loc><lastmod>{HOJE.isoformat()}</lastmod></url></urlset>')
     open('sitemap.xml', 'w', encoding='utf-8').write(sm)
 # feed
 feed = open('blog/feed.xml', encoding='utf-8').read()
