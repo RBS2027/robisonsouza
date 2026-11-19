@@ -735,6 +735,10 @@ def main():
     with open("/tmp/qa_report_body.md", "w", encoding="utf-8") as fh:
         fh.write(report if has_manual_issues else "")
 
+    # texto repetido entre os sites do Instituto (acrescenta ao relatório; nunca interrompe)
+    import subprocess
+    subprocess.run([sys.executable, "scripts/duplicados.py"], check=False)
+
     sys.exit(0)
 
 
