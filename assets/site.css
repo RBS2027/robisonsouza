@@ -668,3 +668,10 @@ footer.site .colunas.rd27+.rd27-perfis+div+p{font-family:var(--sans)!important;f
 
 footer.site p.rd27-end{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.8rem 1.5rem;font-family:var(--sans)!important;font-size:.88rem!important;color:var(--escuro-2)!important;margin-top:1rem!important;line-height:1.5!important}
 footer.site p.rd27-end strong{display:inline-block;background:var(--cobre-texto);color:#fff;font-weight:600;font-size:.82rem;letter-spacing:.02em;padding:.55rem 1.15rem;border-radius:999px}
+
+footer.site .rd27-frase{font-size:1.5rem;line-height:1.3!important;margin:0 0 1.1rem;color:var(--escuro-2);font-weight:500}
+footer.site .rd27-frase em{color:var(--cobre-texto);font-style:italic}
+footer.site div.rd27-card{display:flex;gap:.85rem;align-items:center;height:100%;background:rgba(255,255,255,.55);border:1px solid var(--linha-forte);border-radius:16px;padding:1rem 1.1rem}
+footer.site div.rd27-card a{display:block;padding:.05rem 0;font-size:.98rem;line-height:1.5}
+footer.site div.rd27-card a.rd27-ir{font-family:var(--sans);font-size:.76rem;font-weight:600;color:var(--cobre-texto);margin-top:.35rem}
+@media(max-width:680px){footer.site .rd27-frase{font-size:1.25rem}}
