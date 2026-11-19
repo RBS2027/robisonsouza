@@ -679,3 +679,6 @@ footer.site div.rd27-card a.rd27-ir{font-family:var(--sans);font-size:.76rem;fon
 /* zap-maior-2027 */
 @media(min-width:481px){.zap{padding:.7rem 1.45rem .7rem .7rem!important;gap:.85rem!important;font-size:1.15rem}.zap img{width:54px!important;height:54px!important}.zap span span{font-size:.82rem!important}}
 @media(max-width:480px){.zap img{width:46px!important;height:46px!important}}
+
+/* zap-nota-2027 */
+footer.site .rd27-card span .rd27-nota{display:block;font-family:'Montserrat',Arial,sans-serif;font-size:.74rem;line-height:1.45;color:#69594D;margin-top:.3rem;padding:0}
