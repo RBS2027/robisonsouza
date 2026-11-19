@@ -48,3 +48,5 @@ print('INDEXNOW_URL=' + url)
 # atualiza os blocos de artigos por tema nas páginas de serviço
 import subprocess, sys as _sys
 subprocess.run([_sys.executable, 'scripts/clusters.py'], check=False)
+# atualiza as páginas-guia por tema e o link de tema nos artigos
+subprocess.run([_sys.executable, 'scripts/temas.py'], check=False)

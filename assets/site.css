@@ -682,3 +682,6 @@ footer.site div.rd27-card a.rd27-ir{font-family:var(--sans);font-size:.76rem;fon
 
 /* zap-nota-2027 */
 footer.site .rd27-card span .rd27-nota{display:block;font-family:'Montserrat',Arial,sans-serif;font-size:.74rem;line-height:1.45;color:#69594D;margin-top:.3rem;padding:0}
+
+.rede27-tema{font-family:var(--sans);font-size:.9rem;margin:0 0 1.2rem;color:#69594D}
+.rede27-tema a{font-weight:600}
