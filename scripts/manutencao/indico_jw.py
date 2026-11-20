@@ -2,7 +2,7 @@
 # (falsas acusações, crimes sexuais, inquérito, medida protetiva, revisão criminal, Júri). Não repete.
 import glob,re,html,sys
 R='/home/claude/'
-INC=r'fals[ao]s? acusa|falsamente|injustamente|caluniosa|infundad|medida protetiva|revis[ãa]o criminal|inqu[ée]rito|processo criminal|per[íi]cia criminal|pericial criminal|processo penal|apela[çc][ãa]o criminal|tribunal do j[úu]ri|absolvi|acusado|condenad|condena[çc][ãa]o se|defensiva|para a defesa|crimes? sexua(l|is)|transitada em julgado|alega[çc][ãa]o simult|acusa[çc][ãa]o de abuso|alega[çc][ãa]o de abuso|prova [úu]nica|contesta[çc][ãa]o de depoimento|delegacia|importuna[çc][ãa]o|persegui[çc][ãa]o \(stalking|arquivamento'
+INC=r'fals[ao]s? acusa|falsamente|injustamente|caluniosa|infundad|medida protetiva|revis[ãa]o criminal|inqu[ée]rito|processo criminal|per[íi]cia criminal|pericial criminal|processo penal|apela[çc][ãa]o criminal|tribunal do j[úu]ri|absolvi|acusado|condenad|condena[çc][ãa]o se|defensiva|para a defesa|crimes? sexua(l|is)|transitada em julgado|alega[çc][ãa]o simult|acusa[çc][ãa]o de abuso|alega[çc][ãa]o de abuso|prova [úu]nica|contesta[çc][ãa]o de depoimento|delegacia|importuna[çc][ãa]o|persegui[çc][ãa]o \(stalking|arquivamento|contexto da acusa|pris[ãa]o preventiva|oitivas anteriores|grupos reflexivos'
 EXC=r'feminic|explora[çc][ãa]o sexual|aliciamento|para crian[çc]as: lei henry|medo de encontrar|primeira revela[çc][ãa]o|psicologia criminal|ex-detento|insanidade|imputabilidade|execu[çc][ãa]o penal|condena[çc][ãa]o criminal do genitor|perda do poder familiar|agressor condenado|bullying|viol[êe]ncia psicol|abuso psicol'
 def box(site):
     pg='/indicacao-dra-jamily-wenceslau/' if site=='robisonsouza' else 'https://robisonsouza.com.br/indicacao-dra-jamily-wenceslau/'
