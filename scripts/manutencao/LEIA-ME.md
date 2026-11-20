@@ -18,3 +18,4 @@ Guardadas em 19/11/2026. Rodam com os cinco repositórios clonados lado a lado e
 Regras que estas ferramentas pressupõem: contato só pelo WhatsApp (12) 99740-2674; atuação "em todo o
 território nacional, online ou presencial"; "condições de produção do relato", nunca "análise de
 credibilidade" como método; só afirmar o que tem fonte oficial.
+- Depois de rodar cidades.py (páginas de cidade novas), rodar completa_locais.py: acrescenta "O que enviar e o que é entregue" e a pergunta sobre prazo vencido (não repete se já existir).
