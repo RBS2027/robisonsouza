@@ -6,17 +6,16 @@ INC=r'fals[ao]s? acusa|falsamente|injustamente|caluniosa|infundad|medida proteti
 EXC=r'feminic|explora[çc][ãa]o sexual|aliciamento|para crian[çc]as: lei henry|medo de encontrar|primeira revela[çc][ãa]o|psicologia criminal|ex-detento|insanidade|imputabilidade|execu[çc][ãa]o penal|condena[çc][ãa]o criminal do genitor|perda do poder familiar|agressor condenado|bullying|viol[êe]ncia psicol|abuso psicol'
 def box(site):
     pg='/indicacao-dra-jamily-wenceslau/' if site=='robisonsouza' else 'https://robisonsouza.com.br/indicacao-dra-jamily-wenceslau/'
-    return ('<!-- indico-jw --><aside class="indico-jw" aria-label="Indicação de advogada" style="margin:2rem 0;padding:1.15rem 1.3rem;background:#FBF8F3;border:1px solid #E4DACB;border-left:4px solid #A66F3E;border-radius:12px">'
-    '<p style="margin:0 0 .45rem;font-weight:700;color:#18222F;font-size:1.08rem">Procure um advogado especializado</p>'
-    '<p style="margin:0 0 .6rem">Em casos de falsas acusações, crimes sexuais e violência doméstica, a orientação é sempre a mesma: procure um profissional especializado no assunto. A <strong>Dra. Jamily Wenceslau</strong>, advogada criminalista (OAB/SP 453.755), é uma dessas profissionais. Trabalhamos juntos em vários processos, participei do documentário do canal dela e escrevi o prefácio do seu livro.</p>'
-    '<p style="margin:0 0 .45rem">WhatsApp do escritório: <a href="https://wa.me/5511910247841" rel="noopener" target="_blank">(11) 91024-7841</a> &middot; <a href="https://www.youtube.com/@JamilyWenceslau" rel="noopener" target="_blank">Canal no YouTube</a> &middot; <a href="https://www.instagram.com/jamilywenceslau/" rel="noopener" target="_blank">Instagram @jamilywenceslau</a></p>'
-    f'<p style="margin:0"><a href="{pg}">Saiba mais sobre esta indicação &rarr;</a></p></aside><!-- /indico-jw -->\n')
+    return ('<!-- indico-jw --><aside class="indico-jw" aria-label="Orientação" style="margin:2rem 0;padding:.9rem 1.15rem;background:#FBF8F3;border:1px solid #E4DACB;border-radius:12px;font-size:.96rem">'
+    '<p style="margin:0"><strong>Ainda sem advogado?</strong> A orientação é sempre procurar um profissional especializado no assunto. A Dra. Jamily Wenceslau, advogada criminalista (OAB/SP 453.755), é uma das profissionais que indico. '
+    f'<a href="{pg}">Saiba mais</a>.</p></aside><!-- /indico-jw -->\n')
+SITES=['robisonsouza','depoimentoespecial','estudopsicossocial']  # sites voltados às partes; não entra no perito nem no assistente (para advogados)
 def titulo(s):
     m=re.search(r'<h1[^>]*>(.*?)</h1>',s,flags=re.S)
     return html.unescape(re.sub(r'<[^>]+>','',m.group(1))).strip().lower() if m else ''
 if __name__=='__main__':
     tot=0
-    for r in ['robisonsouza','perito','depoimentoespecial','estudopsicossocial','assistente']:
+    for r in SITES:
         n=f=0
         for p in sorted(glob.glob(R+f'{r}/**/index.html',recursive=True)):
             s=open(p,encoding='utf-8').read()
