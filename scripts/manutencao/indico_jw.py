@@ -1,4 +1,4 @@
-# Quadro "Precisa de advogado? Eu indico." (Dra. Jamily Wenceslau) nos artigos de temas de defesa
+# Quadro "Procure um advogado especializado" (Dra. Jamily Wenceslau) nos artigos de temas de defesa
 # (falsas acusações, crimes sexuais, inquérito, medida protetiva, revisão criminal, Júri). Não repete.
 import glob,re,html,sys
 R='/home/claude/'
@@ -7,10 +7,10 @@ EXC=r'feminic|explora[çc][ãa]o sexual|aliciamento|para crian[çc]as: lei henry
 def box(site):
     pg='/indicacao-dra-jamily-wenceslau/' if site=='robisonsouza' else 'https://robisonsouza.com.br/indicacao-dra-jamily-wenceslau/'
     return ('<!-- indico-jw --><aside class="indico-jw" aria-label="Indicação de advogada" style="margin:2rem 0;padding:1.15rem 1.3rem;background:#FBF8F3;border:1px solid #E4DACB;border-left:4px solid #A66F3E;border-radius:12px">'
-    '<p style="margin:0 0 .45rem;font-weight:700;color:#18222F;font-size:1.08rem">Precisa de advogado? Eu indico.</p>'
-    '<p style="margin:0 0 .6rem">Em casos de falsas acusações, crimes sexuais e violência doméstica, na defesa de quem é acusado, indico a <strong>Dra. Jamily Wenceslau</strong>, advogada criminalista (OAB/SP 453.755). Trabalhamos juntos em vários processos, participei do documentário do canal dela e escrevi o prefácio do seu livro.</p>'
+    '<p style="margin:0 0 .45rem;font-weight:700;color:#18222F;font-size:1.08rem">Procure um advogado especializado</p>'
+    '<p style="margin:0 0 .6rem">Em casos de falsas acusações, crimes sexuais e violência doméstica, a orientação é sempre a mesma: procure um profissional especializado no assunto. A <strong>Dra. Jamily Wenceslau</strong>, advogada criminalista (OAB/SP 453.755), é uma dessas profissionais. Trabalhamos juntos em vários processos, participei do documentário do canal dela e escrevi o prefácio do seu livro.</p>'
     '<p style="margin:0 0 .45rem">WhatsApp do escritório: <a href="https://wa.me/5511910247841" rel="noopener" target="_blank">(11) 91024-7841</a> &middot; <a href="https://www.youtube.com/@JamilyWenceslau" rel="noopener" target="_blank">Canal no YouTube</a> &middot; <a href="https://www.instagram.com/jamilywenceslau/" rel="noopener" target="_blank">Instagram @jamilywenceslau</a></p>'
-    f'<p style="margin:0"><a href="{pg}">Saiba por que indico &rarr;</a></p></aside><!-- /indico-jw -->\n')
+    f'<p style="margin:0"><a href="{pg}">Saiba mais sobre esta indicação &rarr;</a></p></aside><!-- /indico-jw -->\n')
 def titulo(s):
     m=re.search(r'<h1[^>]*>(.*?)</h1>',s,flags=re.S)
     return html.unescape(re.sub(r'<[^>]+>','',m.group(1))).strip().lower() if m else ''
