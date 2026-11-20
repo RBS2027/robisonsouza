@@ -14,6 +14,9 @@ Guardadas em 19/11/2026. Rodam com os cinco repositórios clonados lado a lado e
 | estados_pe.py | Gerador das páginas de estado do perito (cadastro de peritos por tribunal) |
 | fixnormas.py | Correções de leis e resoluções citadas (auditoria de 19/11/2026) |
 | diagramas.json | Os 7 diagramas explicativos reutilizados nos artigos |
+| diagramas_mais.py | Leva os diagramas a artigos publicados do mesmo tema (por título) |
+| diagramas_cor.py | Acerta cores e títulos dos diagramas à paleta |
+| completa_locais.py | Completa páginas de estado/cidade (fases, o que enviar, perguntas) |
 
 Regras que estas ferramentas pressupõem: contato só pelo WhatsApp (12) 99740-2674; atuação "em todo o
 território nacional, online ou presencial"; "condições de produção do relato", nunca "análise de
