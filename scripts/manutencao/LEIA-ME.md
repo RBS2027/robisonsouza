@@ -22,3 +22,4 @@ Regras que estas ferramentas pressupõem: contato só pelo WhatsApp (12) 99740-2
 território nacional, online ou presencial"; "condições de produção do relato", nunca "análise de
 credibilidade" como método; só afirmar o que tem fonte oficial.
 - Depois de rodar cidades.py (páginas de cidade novas), rodar completa_locais.py: acrescenta "O que enviar e o que é entregue" e a pergunta sobre prazo vencido (não repete se já existir).
+- fila_jw/: originais (markdown) dos artigos sobre falsas acusações e saúde mental de quem é acusado (nov/2026). Regra: a Dra. Jamily Wenceslau aparece só como crédito do documentário, com link para o site dela; não usar quadro de "indicação" de advogado nos artigos.
