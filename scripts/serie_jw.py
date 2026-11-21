@@ -142,7 +142,7 @@ def main():
         if not p: continue
         t = open(p, encoding='utf-8').read(); t0 = t
         t = re.sub(re.escape(A) + r'.*?' + re.escape(B) + r'\n?', '', t, flags=re.S)
-        cand = [x for x in todos if x[1] != slug]
+        cand = [x for x in todos if x[1] != slug and x[1] != 'documentario-absolvido-mas-morto']
         cand = sorted(cand, key=lambda x: (x[3] != rot, (todos.index(x) - i) % len(todos)))
         links = []; por_site = {}
         for s2, sl2, t2, r2 in cand:
@@ -156,6 +156,11 @@ def main():
             extra = '' if s2 == EU else f' <small>({NOMES[s2]})</small>'
             rel = '' if s2 == EU else ' rel="noopener"'
             links.append(f'<li><a href="{u}"{rel}>{html.escape(t2)}</a>{extra}</li>')
+        if 'documentario-absolvido-mas-morto' not in t:
+            if EU == 'rs': links.append('<li><a href="/documentario-absolvido-mas-morto/">Documentário “Absolvido, mas Morto”: as três respostas que dei no filme</a></li>')
+            else:
+                _u = no_ar('rs', 'documentario-absolvido-mas-morto')
+                if _u: links.append('<li><a href="%s" rel="noopener">Documentário “Absolvido, mas Morto”: participação de Robison Souza</a> <small>(%s)</small></li>' % (_u, NOMES['rs']))
         if links:
             bloco = f'{A}<section class="serie-jw" aria-label="Série"><h2 id="serie">Leia também nesta série</h2><ul>{"".join(links)}</ul></section>{B}\n'
             for marca in ('<!-- rede-2027 -->', '<div class="faixa-cta">', '</article>'):
