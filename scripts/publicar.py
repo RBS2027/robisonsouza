@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 """Publica 1 artigo/dia da _fila para a raiz do site (robisonsouza)."""
 import os, json, re, shutil, datetime, html, sys
+# liga entre si os artigos da série já publicados (nunca cria link quebrado)
+import subprocess as _sp, sys as _sy
+_sp.run([_sy.executable, 'scripts/serie_jw.py'], check=False)
 HOJE = datetime.date.today()
 MESES = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro']
 # TRAVA DE IDEMPOTENCIA: se o artigo mais recente ja tem a data de hoje, nao publica de novo
