@@ -57,3 +57,11 @@ Anexos: modelos de contrato de namoro, escritura de união estável etc.
 - p.302-331 Anexos (modelos de contrato de namoro e escrituras de união estável): não lidos página a página — são minutas jurídicas.
 - p.332-337 Apêndice: checklists (primeiro encontro, risco de união estável) e glossário. Fim do texto em p.337 (100%).
 LEITURA ENCERRADA. Não lidos: p.186-215 (patrimônio/empresa), p.234-241, p.302-331 (minutas), e 3 telas isoladas.
+## Terceira sessão (lacunas, a pedido "leia tudo")
+- p.186-198: cláusulas do pacto (sub-rogação, incomunicabilidade de quotas, administração exclusiva, doação com reversão, lar conjugal alugado); o que o pacto não faz (guarda, alimentos); passo a passo do pacto antenupcial e da escritura de união estável; mitos; mini-modelo de cláusulas; alteração de regime (art. 1.639 §2º CC).
+- p.199-210: "golpe da barriga"; contracepção sob responsabilidade do homem; vasectomia (Lei 9.263/96) e congelamento de sêmen; alimentos gravídicos (Lei 11.804/08, indícios de paternidade; teste pré-natal não invasivo; irrepetibilidade dos alimentos).
+- p.212-215: empresa — cláusula de incomunicabilidade de quotas, acordo de sócios, pró-labore x lucros, contabilidade.
+- p.234-241: teste do "não"; higiene digital (não enviar nudes; postagens viram prova em pensão/guarda/acusação de agressão; regras de WhatsApp: nunca escrever com raiva, nunca ameaçar, ler como se um promotor lesse); privacidade.
+- p.302-331 Anexos lidos: modelo de contrato de namoro; escritura de união estável com separação de bens; pacto antenupcial; dissolução consensual de união estável; contrato de mútuo — cada um com nota técnica (revisar com advogado de família).
+- p.118-125 relidas (telas que faltavam): Potifar; caso Neymar; caso de jogador exposto por chantagem; casos de extorsão com ameaça de acusação; texto afirma que condenação pode se basear só na palavra da vítima (posição da autora — nos sites manter a formulação técnica: palavra tem valor especial, mas exige coerência e corroboração).
+LIVRO LIDO POR INTEIRO (21/11/2026).
