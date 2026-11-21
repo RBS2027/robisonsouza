@@ -69,7 +69,27 @@ SERIE = [
  ("rs", "por-que-inocentes-as-vezes-admitem-ou-se-calam-a-psicologia-da-confissao-e-do-silencio", "Por que inocentes admitem ou se calam", "Psicologia do Testemunho"),
  ("rs", "vergonha-e-culpa-de-quem-e-acusado-injustamente-por-que-aparecem-e-como-lidar", "Vergonha e culpa de quem é acusado", "Saúde Mental"),
  ("rs", "voltar-ao-trabalho-depois-de-uma-acusacao-o-que-esperar-e-como-se-preparar", "Voltar ao trabalho depois de uma acusação", "Saúde Mental"),
- ("rs", "afastado-dos-filhos-por-uma-acusacao-o-luto-da-convivencia-interrompida", "Afastado dos filhos por uma acusação", "Saúde Mental")
+ ("rs", "afastado-dos-filhos-por-uma-acusacao-o-luto-da-convivencia-interrompida", "Afastado dos filhos por uma acusação", "Saúde Mental"),
+    ('as', 'como-a-familia-organiza-um-processo-criminal-antigo-para-a-analise-do-assistente-tecnico', 'Como a Família Organiza um Processo Criminal Antigo para a Análise do Assistente Técnico', 'Revisão Criminal'),
+    ('as', 'cliente-preso-como-o-psicologo-assistente-tecnico-trabalha-quando-o-acusado-esta-detido', 'Cliente Preso: Como o Psicólogo Assistente Técnico Trabalha Quando o Acusado Está Detido', 'Processo Criminal'),
+    ('as', 'acusado-em-sindicancia-quando-chamar-o-assistente-tecnico-antes-do-processo-judicial', 'Acusado em Sindicância: Quando Chamar o Assistente Técnico Antes do Processo Judicial', 'Processo Criminal'),
+    ('as', 'acusacao-entre-vizinhos-envolvendo-crianca-o-que-a-analise-tecnica-do-relato-examina', 'Acusação Entre Vizinhos Envolvendo Criança: O Que a Análise Técnica do Relato Examina', 'Processo Criminal'),
+    ('de', 'crianca-ouvida-antes-da-lei-13431-como-reexaminar-uma-oitiva-antiga', 'Criança Ouvida Antes da Lei 13.431/2017: Como Reexaminar uma Oitiva Antiga', 'Série'),
+    ('de', 'grupo-de-pais-no-whatsapp-e-depoimento-especial-como-a-conversa-entre-adultos-chega-ao-relato', 'Grupo de Pais no WhatsApp e Depoimento Especial: Como a Conversa Entre Adultos Chega ao Relato', 'Série'),
+    ('ep', 'acusacao-ocorrida-fora-de-casa-e-a-disputa-de-guarda-como-o-estudo-psicossocial-trata-o-tema', 'Acusação Ocorrida Fora de Casa e a Disputa de Guarda: Como o Estudo Psicossocial Trata o Tema', 'Série'),
+    ('pe', 'erro-judiciario-e-indenizacao-como-a-pericia-psicologica-avalia-o-dano-de-quem-foi-condenado', 'Erro Judiciário e Indenização: Como a Perícia Psicológica Avalia o Dano de Quem Foi Condenado', 'Perícia Psicológica'),
+    ('pe', 'laudo-antigo-e-conhecimento-atual-como-o-perito-rele-um-laudo-psicologico-de-anos-atras', 'Laudo Antigo e Conhecimento Atual: Como o Perito Relê um Laudo Psicológico de Anos Atrás', 'Perícia Psicológica'),
+    ('pe', 'varias-pessoas-acusam-a-mesma-pessoa-como-o-perito-examina-a-independencia-dos-relatos', 'Várias Pessoas Acusam a Mesma Pessoa: Como o Perito Examina a Independência dos Relatos', 'Perícia Psicológica'),
+    ('pe', 'pericia-psicologica-em-processo-administrativo-disciplinar-o-que-pode-e-o-que-nao-pode-concluir', 'Perícia Psicológica em Processo Administrativo Disciplinar: O Que Pode e o Que Não Pode Concluir', 'Perícia Psicológica'),
+    ('rs', 'justificacao-criminal-como-se-produz-a-prova-nova-antes-da-revisao-criminal', 'Justificação Criminal: Como se Produz a Prova Nova Antes da Revisão Criminal', 'Revisão Criminal'),
+    ('rs', 'revisao-criminal-depois-da-morte-do-condenado-o-que-a-familia-pode-pedir', 'Revisão Criminal Depois da Morte do Condenado: O Que a Família Pode Pedir', 'Revisão Criminal'),
+    ('rs', 'o-que-o-tribunal-pode-decidir-na-revisao-criminal-e-o-que-o-parecer-deve-mirar', 'O Que o Tribunal Pode Decidir na Revisão Criminal e o Que o Parecer Deve Mirar', 'Revisão Criminal'),
+    ('rs', 'revisao-criminal-ja-negada-quando-um-novo-pedido-e-possivel', 'Revisão Criminal Já Negada: Quando um Novo Pedido É Possível', 'Revisão Criminal'),
+    ('rs', 'lider-religioso-acusado-o-que-a-defesa-tecnica-examina-no-relato-e-no-contexto', 'Líder Religioso Acusado: O Que a Defesa Técnica Examina no Relato e no Contexto', 'Falsas Acusações'),
+    ('rs', 'treinador-acusado-por-atletas-o-que-a-analise-tecnica-examina-no-esporte', 'Treinador Acusado por Atletas: O Que a Análise Técnica Examina no Esporte', 'Falsas Acusações'),
+    ('rs', 'profissional-de-saude-acusado-por-paciente-como-a-psicologia-forense-analisa-o-relato', 'Profissional de Saúde Acusado por Paciente: Como a Psicologia Forense Analisa o Relato', 'Falsas Acusações'),
+    ('rs', 'acusacao-na-universidade-sindicancia-e-processo-criminal-ao-mesmo-tempo', 'Acusação na Universidade: Sindicância e Processo Criminal ao Mesmo Tempo', 'Falsas Acusações'),
+    ('rs', 'investigacao-interna-da-empresa-o-valor-das-entrevistas-do-compliance-como-prova', 'Investigação Interna da Empresa: O Valor das Entrevistas do Compliance como Prova', 'Psicologia do Testemunho'),
 ]
 FIXAS = [('rs', 'documentario-absolvido-mas-morto', 'Documentário “Absolvido, mas morto”: minha participação', 'Documentário')]
 A, B = '<!-- serie-jw -->', '<!-- /serie-jw -->'
