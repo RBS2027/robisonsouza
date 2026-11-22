@@ -104,12 +104,12 @@ def main():
         n, intro = NOME[s]
         cards = ''.join(f'<div class="cartao"><h3><a href="{a["url"]}" style="text-decoration:none">{e(a["h1"])}</a></h3><p>{e(a["desc"])}</p></div>' for a in itens)
         outros = ' · '.join(f'<a href="/temas/{x}/">{e(NOME[x][0])}</a>' for x in G if x != s)
-        corpo = (f'<p>{e(intro)} São {len(itens)} artigos, do mais recente para o mais antigo.</p>\n<h2 id="artigos">Todos os artigos sobre {e(n[0].lower() + n[1:])}</h2>\n'
+        corpo = (f'<p>{e(intro)} Os artigos estão listados do mais recente para o mais antigo.</p>\n<h2 id="artigos">Todos os artigos sobre {e(n[0].lower() + n[1:])}</h2>\n'
                  f'<div class="grade-servicos" style="margin:1.2rem 0 2rem">{cards}</div>\n<h2 id="outros-temas">Outros temas</h2>\n<p>{outros} · <a href="/temas/">todos os temas</a></p>\n{CTA}')
-        pagina(modelo, f'temas/{s}', tit(f'{n}: {len(itens)} artigos'), f'{n}: todos os artigos', f'{len(itens)} artigos sobre {n[0].lower() + n[1:]}, organizados em uma só página. {intro}'[:152].rsplit(' ', 1)[0] + '.', 'Guia por tema', corpo, [('Início', '/'), ('Temas', '/temas/'), (n, f'/temas/{s}/')])
-    lista = ''.join(f'<div class="cartao"><h3><a href="/temas/{s}/" style="text-decoration:none">{e(NOME[s][0])}</a></h3><p>{len(v)} artigos. {e(NOME[s][1])}</p></div>' for s, v in G.items())
-    pagina(modelo, 'temas', tit('Artigos organizados por tema'), 'Todos os artigos, organizados por tema', f'Os {len(A)} artigos deste site reunidos em {len(G)} temas: depoimento especial, estudo psicossocial, laudos, guarda, alienação parental e outros.'[:155], 'Guia por tema',
-           f'<p>Este site reúne {len(A)} artigos técnicos. Para facilitar a leitura, eles estão agrupados em {len(G)} temas. Escolha o que tem relação com o seu processo.</p>\n<div class="grade-servicos grade-temas" style="margin:1.2rem 0 2rem">{lista}</div>\n{CTA}', [('Início', '/'), ('Temas', '/temas/')])
+        pagina(modelo, f'temas/{s}', tit(f'{n}: todos os artigos'), f'{n}: todos os artigos', f'Artigos sobre {n[0].lower() + n[1:]}, organizados em uma só página. {intro}'[:152].rsplit(' ', 1)[0] + '.', 'Guia por tema', corpo, [('Início', '/'), ('Temas', '/temas/'), (n, f'/temas/{s}/')])
+    lista = ''.join(f'<div class="cartao"><h3><a href="/temas/{s}/" style="text-decoration:none">{e(NOME[s][0])}</a></h3><p>{e(NOME[s][1])}</p></div>' for s, v in G.items())
+    pagina(modelo, 'temas', tit('Artigos organizados por tema'), 'Todos os artigos, organizados por tema', f'Os artigos deste site reunidos por tema: depoimento especial, estudo psicossocial, laudos, guarda, alienação parental e outros.'[:155], 'Guia por tema',
+           f'<p>Para facilitar a leitura, os artigos técnicos deste site estão agrupados por tema. Escolha o que tem relação com o seu processo.</p>\n<div class="grade-servicos grade-temas" style="margin:1.2rem 0 2rem">{lista}</div>\n{CTA}', [('Início', '/'), ('Temas', '/temas/')])
     # link "Tema deste artigo" em cada artigo
     n_art = 0
     for s, itens in G.items():

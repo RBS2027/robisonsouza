@@ -33,7 +33,7 @@ json.dump(posts, open('blog/posts.json', 'w', encoding='utf-8'), ensure_ascii=Fa
 idx = open('blog/index.html', encoding='utf-8').read()
 card = f'<div class="cartao"><p class="migalha">{HOJE.strftime("%d/%m/%Y")}</p><h3><a href="/{slug}/" style="text-decoration:none">{html.escape(h1)}</a></h3><p>{html.escape(desc)}</p></div>'
 idx = re.sub(r'(<div class="grade-servicos"[^>]*>)', r'\1' + card, idx, count=1)
-idx = re.sub(r'(\d+) artigos t', lambda m: f'{int(m.group(1))+1} artigos t', idx, count=1)
+idx = idx  # contagem de artigos retirada a pedido (21/11/2026)
 open('blog/index.html', 'w', encoding='utf-8').write(idx)
 # sitemap
 sm = open('sitemap.xml', encoding='utf-8').read()
